@@ -1,0 +1,13 @@
+# OS
+.DS_Store
+
+# LaTeX build files
+*.aux
+*.log
+*.log
+*.synctex.gz
+*.toc
+*.fdb_latexmk
+*.out
+*.pdf
+download

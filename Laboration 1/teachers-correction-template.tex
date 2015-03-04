@@ -1,0 +1,176 @@
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\newcounter{questioncounter}
+\newcounter{exercisecounter}
+\setcounter{questioncounter}{0}
+\setcounter{exercisecounter}{0}
+
+
+% Questions
+\newcommand{\question}[1]{
+  \refstepcounter{questioncounter}
+  \addcontentsline{toc}{subsubsection}{Fråga: 1.\thequestioncounter{} #1}
+  \vspace{1em}~
+  \\\normalfont{\large{\bfseries{\hspace{0.5em}Fråga 1.\thequestioncounter \hspace{1em}#1}}}\\\\
+}
+
+% Exercises
+\newcommand{\exercise}[1]{
+  \refstepcounter{exercisecounter}
+  \addcontentsline{toc}{subsubsection}{Uppgift: 1.\theexercisecounter{} #1}
+  \vspace{1em}~
+  \\\normalfont{\large{\bfseries{\hspace{0.5em}Uppgift 1.\theexercisecounter \hspace{1em}#1}}}\\\\
+}
+
+\lstset{
+  language=[Sharp]C,
+  basicstyle=\color[rgb]{0.3,0.3,0.3}\ttfamily,
+  keywordstyle=\color[rgb]{0,0.5,0.5},
+  numberstyle=\color[rgb]{0.7,0.7,0.7},
+  commentstyle=\color[rgb]{0.1,0.5,0.1},
+  stringstyle=\color[rgb]{0.6,0.1,0.5},
+  backgroundcolor=\color[rgb]{0.95,0.95,0.95},
+  showstringspaces=false,
+  numbers=left,
+  breaklines,
+  breakatwhitespace,
+}
+
+
+
+\begin{document}
+
+  \title{Labb I -Listor, köer och stackar }
+  \author{ Algoritmer och datastrukturer | Uppsala Universitet | VT15 }
+  \date{}
+  \maketitle
+
+
+  \section*{}
+   En datastruktur besitter både styrkor och svagheter. Att välja rätt datastruktur för att
+   lösa ett givet problem kan därför underlätta utformningen av lösningsalgoritmen väsentligt.
+   I den här laborationen kommer ni att bekanta er med olika grundläggande datastrukturer
+   som listor, arrayer, köer och stackar. Tanken är att ni skall få en inblick i deras respektive
+   styrkor och svagheter. Därmed bör det bli enklare att välja rätt typ av datastruktur för ett
+   givet problem. Ni kommer även att implementera en egen datastruktur genom realiseringen
+   av den abstrakta datatypen Påse (Bag/Multiset). Alla implementationer i denna laboration
+   görs i skalprojektet som finns att tillgå på kurshemsidan. 
+
+
+
+  \section*{Listor
+  }
+
+  En lista är en abstrakt datastruktur som kan implementeras på flera olika sätt. För er är
+  antagligen List-klassen den mest bekanta sedan tidigare. Till skillnad mot en array är en
+  lista inte av en förutbestämd storlek, utan storleken ändras i takt med att element läggs
+  till i listan. List-klassen är dock implementerad med en underliggande array vars beteende
+  ni nu skall undersöka. För att erhålla storleken av denna array används Capacity-metoden i
+  List-klassen.
+  
+  \begin{enumerate}
+    \item Skriv klart implementationen av ExamineList-metoden så att du kan genomföra din
+    undersökning.
+    \item När ökar listans (d v s den underliggande arrayens) kapacitet?
+    \item Med hur mycket ökar kapaciteten? (undersök ett flertal utökningar!)
+    \item Minskar kapaciteten när element tas bort ur listan?
+  \end{enumerate}
+  
+  \textcolor{red}{Uppgift att fundera på: Varför ökar inte listans kapacitet i samma takt som element läggs till? Varför har inte listan 1000 platser redan från början? (DENNA SKA SKRIVAS OM!)}
+
+  \section*{Köer}
+  Datastrukturen kö (implementerad i Queue-klassen) fungerar enligt FIFO-principen (First
+  In First Out), d v s att det element som ställt sig i kön först även lämnar kön först.
+
+  \begin{enumerate}
+      \item Simulera en kö med papper och penna där följande inträffar:
+	      \begin{enumerate}
+	          \item ICA oöpnar och kön till kassan är tom.
+	          \item Kalle ställer sig i kön.
+	          \item Lisa ställer sig i kön.
+	          \item Kalle blir expedierad och lämnar kön.
+	          \item Stina ställer sig i kön
+	          \item Lisa blir expedierad och lämnar kön.
+	          \item Olle ställer sig i kön.
+	          \item \ldots
+	      \end{enumerate}
+      \item Implementera metoden TestQueue. Metoden ska simulera hur en kö fungerar genom
+      att tillåta användaren att ställa element i kön (enqueue) och ta bort element ur kön
+      (dequeue). Använd Queue-klassen till hjälp för att implementera metoden. Simulera
+      sedan ICA-kön igen med hjälp av ditt program.
+    \end{enumerate}
+  \section*{Stackar}
+  En stack är väldigt lik datastrukturen kö med skillnaden att en stack fungerar enligt principen FILO (First In Last Out). Alltså gäller att det element som läggs till sist till stacken (push) är det element som kommer tas bort först (pop).
+  \begin{enumerate}
+  	          \item Simulera ICA-kön i föregående fråga igen på papper, men använd dig av en stack istället för en kö. Varför är detta inte en strategi att föredra med avseende på vad vi försöker simulera?
+  	          \item Implementera en ReverseText-metod som läser in en sträng från användaren och med hjälp av en stack vänder ordning på teckenföljden för att sedan skriva ut den omvända strängen till användaren.	          
+   \end{enumerate}
+  \section*{Påse (Bag) - implementation}
+  Det finns ett antal datastrukturer som fungerar som samlingar av objekt. Ni har ovan bekantat
+  er med listor, köer, stackar och arrayer som samtliga är exempel på dylika datastrukturer.
+  Samlingar är vanliga då lagring av element i en struktur är en grundläggande förutsättning
+  för databehandling. Ni skall nu göra en egen implementation av en samling i form av en
+  påse. Följande operationer ska stödjas:
+  
+  
+
+
+
+  \subsection*{Frågor}
+  Gällande frågorna så är alltså poängen att studenten ska reflektera över att det i stort sett är samma felmeddelanden vi får i terminalen som i Visual Studio. Bara att de presenteras på olika sätt. Den andra viktiga poängen är att de bör svara med \textbf{rätt typ av fel}. Är felet som uppstår ett \texttt{kompileringsfel} och de svarar med \texttt{runtime-/exekveringsfel} så är det alltså INTE ok!
+
+  \paragraph{}
+  Vi gjorde fel i Fråga 1.1. Poängen var där att de skulle försöka kompilera en fil som inte fanns men vi glömde att tänka på att Windows terminal inte är case-sensitive. Vi bad dem alltså att köra \texttt{csc age.cs} men vi borde snarare ha bett dem att köra \texttt{csc name\_of\_non\_existant\_file.cs}. Med andra ord fick studenterna inte det fel vi hade tänkt oss på 1.1. Så i Fråga 1.1. är det OK att svara samma sak som i Fråga 1.2, och vice versa. Eller dylikt RIMLIGT svar. Använd sunt förnuft!
+
+
+
+  \section*{Labb 2}
+  De generella kommentarerna kring labb 1 gäller även här.
+
+  \subsection*{Uppgifter}
+  Generellt gällande uppgifterna i labb 2 så gäller att de inte ska hårdkoda antal varv. Med andra, om en fråga kräver att programmet loopar tills en viss input ges, så är det t.ex. \textbf{inte ok} att skriva en for-loop som tar 900000 varv.
+  \paragraph{}
+  I övrigt, kan det vara värt att tänka på att det finns många sätt att lösa samma sak på. Många tenderar att överkomplexifiera problem. En svårförstådd lösning är förstås också en lösning, men om den är mycket onödigt komplex kanske man ska ge eleven en kommentar. Sunt förnuft!
+  \paragraph{}
+  Exempel på onödig komplexitet är t.ex...
+  \begin{lstlisting}
+  /* It's unnecessarily complex to do this.. */
+  if(true){
+    // ..
+  }else if(false){
+    // ..
+  }
+
+  /* ..when you can simply do this... */
+  if(true){
+    // ..
+  }else{
+    // ..
+  }
+  \end{lstlisting}
+
+  \paragraph{}
+  I 2.8 (och ev. 2.9 beroende på hur eleven väljer att lösa uppgiften) så gjorde vi ett misstag och eleven kommer antagligen att behöva lösa uppgiften med \texttt{try.. catch} eller \texttt{int.TryParse()}. Både vilka egentligen är lite för svåra. Så var lite snälla emot slarvfel här.
+
+  \paragraph{}
+  I den sista uppgiften behöver de inte lämna in all sin kod. Det räcker helt enkelt att de lämnar in loopen, och switch/if-satserna som rimligen orsakar deras metodanrop. Ni behöver inte heller kolla att deras metoder faktiskt existerar men använt sunt förnft för att avgöra huruvida de verkar ha löst uppgiften korrekt eller ej. Poängen är alltså att lära sig att beroende på state, anropa olika metoder.
+
+  \subsection*{Frågor}
+  Gällande Fråga 2.1 så är förslag på svar: psuedokod, kod, diagram etc.
+
+
+  \section*{}
+  Hör av er om ni har några andra funderingar :)
+  /chris
+
+
+
+\end{document}
