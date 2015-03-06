@@ -120,56 +120,54 @@
   för databehandling. Ni skall nu göra en egen implementation av en samling i form av en
   påse. Följande operationer ska stödjas:
   
+  \begin{center}
+  \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{ l | c | p{5cm}}
+    
+      
+      \textbf{Namn} & \textbf{Signatur} & \textbf{Förklaring} \\ \hline
+      Add & \texttt{void Add(int item)}& Lägger till item i påsen \\ 
+      Remove & \texttt{bool Remove(int item)} & Tar bort item ur påsen (finns det flera med samma värde tas enbart den första bort) \\
+      Clear & \texttt{void Clear()} \\ 
+      Count & \texttt{int Count} & Antalet element i påsen (egenskap) \\
+      Contains &\texttt{ bool Contains(int item)} & Kontrollerar om item finns i påsen  \\ 
+      Items & \texttt{int[] Items()} & En array med alla element i påsen \\
+      \hline
+    \end{tabular}
+  \end{center}
   
+  Påsen ska implementeras i klassen Bag och ska vara implementerad med en array som
+  underliggande datastruktur för lagring av de element som påsen innehåller. Denna arrays
+  storlek ska öka och minska dynamiskt och alltid vara av samma storlek som det totala antalet
+  element i påsen. Således, om vi har 15 element i påsen ska arrayen ha storlek 15 och om vi
+  tar bort ett element ska den ha storlek 14 o s v.
 
+    \begin{enumerate}
+    	          \item Operationerna Add och Remove kommer att medföra att den underliggande arrayens storlek ändras. Redogör för dessa operationers utformning genom illustration på papper.
+    	          \item Implementera ovanstående metoder i Bag-klassen.	  
+    	          \item Skriv ett testprogram (implementera metoden \texttt{Testbag}) där man ska kunna lägga till, ta bort samt räkna element. Vidare ska man kunna undersöka huruvida ett element finns i påsen eller ej. Använda följande kommandon; add: +element, remove: -element,
+    	          contains: ?element, count: !. 
+    	          \\\\
+    	          Exempel på testkörning:
+    	          
+    	          \texttt{+12}\\
+    	          \texttt{Bag = 12 }\\
+    	          \texttt{+3} \\
+    	          \texttt{Bag =  12, 3 }
+    	          \texttt{+7}\\
+    	          \texttt{Bag = 12, 3, 7 }\\
+    	          \texttt{-3}\\
+    	          \texttt{Bag =  12, 7 }\\
+    	          \texttt{?3} \\
+    	          \texttt{ Contains = false} \\
+    	          \texttt{!}\\
+    	          \texttt{Count = 2}\\
+    	          
+    	              
+     \end{enumerate}
 
-
-  \subsection*{Frågor}
-  Gällande frågorna så är alltså poängen att studenten ska reflektera över att det i stort sett är samma felmeddelanden vi får i terminalen som i Visual Studio. Bara att de presenteras på olika sätt. Den andra viktiga poängen är att de bör svara med \textbf{rätt typ av fel}. Är felet som uppstår ett \texttt{kompileringsfel} och de svarar med \texttt{runtime-/exekveringsfel} så är det alltså INTE ok!
-
-  \paragraph{}
-  Vi gjorde fel i Fråga 1.1. Poängen var där att de skulle försöka kompilera en fil som inte fanns men vi glömde att tänka på att Windows terminal inte är case-sensitive. Vi bad dem alltså att köra \texttt{csc age.cs} men vi borde snarare ha bett dem att köra \texttt{csc name\_of\_non\_existant\_file.cs}. Med andra ord fick studenterna inte det fel vi hade tänkt oss på 1.1. Så i Fråga 1.1. är det OK att svara samma sak som i Fråga 1.2, och vice versa. Eller dylikt RIMLIGT svar. Använd sunt förnuft!
-
-
-
-  \section*{Labb 2}
-  De generella kommentarerna kring labb 1 gäller även här.
-
-  \subsection*{Uppgifter}
-  Generellt gällande uppgifterna i labb 2 så gäller att de inte ska hårdkoda antal varv. Med andra, om en fråga kräver att programmet loopar tills en viss input ges, så är det t.ex. \textbf{inte ok} att skriva en for-loop som tar 900000 varv.
-  \paragraph{}
-  I övrigt, kan det vara värt att tänka på att det finns många sätt att lösa samma sak på. Många tenderar att överkomplexifiera problem. En svårförstådd lösning är förstås också en lösning, men om den är mycket onödigt komplex kanske man ska ge eleven en kommentar. Sunt förnuft!
-  \paragraph{}
-  Exempel på onödig komplexitet är t.ex...
-  \begin{lstlisting}
-  /* It's unnecessarily complex to do this.. */
-  if(true){
-    // ..
-  }else if(false){
-    // ..
-  }
-
-  /* ..when you can simply do this... */
-  if(true){
-    // ..
-  }else{
-    // ..
-  }
-  \end{lstlisting}
-
-  \paragraph{}
-  I 2.8 (och ev. 2.9 beroende på hur eleven väljer att lösa uppgiften) så gjorde vi ett misstag och eleven kommer antagligen att behöva lösa uppgiften med \texttt{try.. catch} eller \texttt{int.TryParse()}. Både vilka egentligen är lite för svåra. Så var lite snälla emot slarvfel här.
-
-  \paragraph{}
-  I den sista uppgiften behöver de inte lämna in all sin kod. Det räcker helt enkelt att de lämnar in loopen, och switch/if-satserna som rimligen orsakar deras metodanrop. Ni behöver inte heller kolla att deras metoder faktiskt existerar men använt sunt förnft för att avgöra huruvida de verkar ha löst uppgiften korrekt eller ej. Poängen är alltså att lära sig att beroende på state, anropa olika metoder.
-
-  \subsection*{Frågor}
-  Gällande Fråga 2.1 så är förslag på svar: psuedokod, kod, diagram etc.
-
-
-  \section*{}
-  Hör av er om ni har några andra funderingar :)
-  /chris
+  \subsection*{Abstraktion}
+\textcolor{red}{Här kommer det finnas ett sätt att visa på abstraktion med hjälp av interface}
 
 
 
