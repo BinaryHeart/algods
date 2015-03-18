@@ -1,0 +1,219 @@
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{mathtools}
+
+\newcounter{questioncounter}
+\newcounter{exercisecounter}
+\setcounter{questioncounter}{0}
+\setcounter{exercisecounter}{0}
+
+
+% Questions
+\newcommand{\question}[1]{
+  \refstepcounter{questioncounter}
+  \addcontentsline{toc}{subsubsection}{Fråga: 1.\thequestioncounter{} #1}
+  \vspace{1em}~
+  \\\normalfont{\large{\bfseries{\hspace{0.5em}Fråga 1.\thequestioncounter \hspace{1em}#1}}}\\\\
+}
+
+% Exercises
+\newcommand{\exercise}[1]{
+  \refstepcounter{exercisecounter}
+  \addcontentsline{toc}{subsubsection}{Uppgift: 1.\theexercisecounter{} #1}
+  \vspace{1em}~
+  \\\normalfont{\large{\bfseries{\hspace{0.5em}Uppgift 1.\theexercisecounter \hspace{1em}#1}}}\\\\
+}
+
+\lstset{
+  language=[Sharp]C,
+  basicstyle=\color[rgb]{0.3,0.3,0.3}\ttfamily,
+  keywordstyle=\color[rgb]{0,0.5,0.5},
+  numberstyle=\color[rgb]{0.7,0.7,0.7},
+  commentstyle=\color[rgb]{0.1,0.5,0.1},
+  stringstyle=\color[rgb]{0.6,0.1,0.5},
+  backgroundcolor=\color[rgb]{0.95,0.95,0.95},
+  showstringspaces=false,
+  numbers=left,
+  breaklines,
+  breakatwhitespace,
+}
+
+
+
+\begin{document}
+
+  \title{Labb II -Ordo, sortering och sökning }
+  \author{ Algoritmer och datastrukturer | Uppsala Universitet | VT15 }
+  \date{}
+  \maketitle
+
+
+  \section*{Inledning}
+   I denna laboration kommer vi att behandla ordo, sortering och sökning. Det är viktigt att
+   man verkligen förstår hur sorteringsalgoritmerna fungerar, så använd papper och penna!
+   Att bara skriva in kod utan att förstå de mekaniska inslagen som utförs resulterar enkom i
+   framtida bekymmer (bl a på tentamen). Vidare är det viktigt att förstå hur man använder
+   stora ordo och att vara noga med att visa alla uträkningar. 
+
+
+
+  \section*{Ordo - Del 1
+  }
+
+  I denna del ska ni få en känsla för programs komplexitet, dvs hur antalet operationer i ett
+  program ökar med stigande input (n). För varje nedanstående kodsnutt ska ni ange dess
+  Ordo. Detta kan ni göra på flertalet sätt. Genom att definiera ett polynom som beskriver
+  hur komplexiteten (antal varv i looparna) beror på input (n) eller genom att för varje loop
+  i programmet motivera dess Ordo och sedan ange och motivera hela programmets Ordo.
+  Ange ordo för följande kodsnuttar. Redovisa alla uträkningar och motivera
+  resultaten.
+  
+  
+   \begin{lstlisting}
+1. for ( i = 1 ; i < n ; i++)
+		for ( j = 1 ; j < n ; j++)
+    \end{lstlisting}
+    
+    \begin{lstlisting}     
+2.	for ( i = 1 ; i < n ; i++)
+		for ( j = 1 ; j < i ; j *=2) 
+    \end{lstlisting}
+    \begin{lstlisting}
+3.	for ( i = 1 ; i * i < n ; i++)
+		for ( j = 1 ; j < n ; j++) 
+    for ( i = 1 ; i < n ; i++)
+		for ( j = i \% 5 ; i + j < 2000; j++) 
+    \end{lstlisting} 
+    \begin{lstlisting}   
+4.	for ( i = 0 ; i <= n ; i *=2)
+    \end{lstlisting}
+
+  
+   \section*{Ordo - Del 2
+    }
+  
+  När vi studerar tidskomplexiteten $T(n)$ för algoritmer är det väldigt sällan vi är intresserad av det exakta resultatet. Ofta är vi endast intresserade av hur $T(n)$ växer beroende av $n$. Att approximera en tid så är Ordo-notation är ett bekvämt sätt att beskriva en funktions asymptotiska beteende, det vill säga hur snabbt den växer.
+  
+Även om vi vet algortims ordo så kan vi inte uttala oss om hur lång tid det kommer ta utan att vi vet hur tiden kommer att växa beroende av $n$. Vi hänvisar främst till föreläsningarna om den bakomliggande teorin men ger en påminnelse om hur de olika algoritmerna kan ha för ordo. Observera att fler finns. 
+  
+  \begin{center}
+    \begin{tabular}{| l | c |}
+      \hline
+      \texttt{$\mathcal{O}(c)$} & utopisk\\ \hline
+      \texttt{$\mathcal{O}(log n)$} & utmärkt \\ \hline
+      \texttt{$\mathcal{O}(n)$} & mycket bra\\ \hline
+      \texttt{$\mathcal{O}(n log n)$} & hygglig \\ \hline
+      \texttt{$\mathcal{O}(n^2)$} & inte så bra \\ \hline
+      \texttt{$\mathcal{O}(c^n)$} & katastrof \\
+      \hline
+    \end{tabular}
+  \end{center}
+  Låt oss definiera följande funktioner: \\
+ \begin{center}
+ \begin{tabular}{ l }
+	$f(n) = 0.001n^2 + n + 100$ \\
+	$g(n) = 30n + 3000$\\
+	$h(n) = 0.0001n^3 + 3$\\
+	$q(n) = n^2 + 26n + 2988$\\\\
+	\end{tabular}
+ \end{center} 
+  Kom ihåg att ordo är det värsta tänkbara fallet. Det finns även inversen av ordo som betecknas med stora omega $\Omega$ alltså den bästa tänkbara tiden. Viktigt att förstå att det är vi som implementerar algoritmerna som kan påverka $\mathcal{O}$ och $\Omega$. Betrakta nedanstående kod. Som den är utformad nu så är Search en algortitm är  $T(n)$ $\in$ $\Omega  (n)$ och $T(n)$ $\in$ $\mathcal{O}(n)$. Din uppgift blir helt enkelt att få algoritmen sådan att den uppfyller  $T(n)$ $\in$ $\Omega(1)$.
+  \begin{lstlisting}
+public bool Search(int number, int[] numbers){
+     bool found = false;
+     for (int i = 0; i < numbers.Length; i++)
+         { 
+            if(number == numbers[i])
+               {
+                     found = true;
+               }
+         }
+     return found; 
+   }
+   \end{lstlisting}
+  
+   \section*{Ordo - Del 3
+      }
+
+  Ytterliggare uppgifter som är på en högre abstraktionsnivå.
+  \begin{enumerate}
+  
+   
+      \item Ponera att vi har två algoritmer $A_1$ och $A_2$ där  $A_1$ $\in$ $\Omega (n)$ och  $A_2$ $\in$ $\mathcal{O}(n^2)$ som avgör huruvida ett tal $n$ är ett primtal eller ej. Du är i behov av just en sådan algoritm. Vilken av dem bör du införskaffa givet den information du har? Motivera ditt svar.
+	      
+      \item Du väljer en av algoritmerna i föregående fråga och en kamrat väljer den andra. Ni
+      testkör era algoritmer på en stor mängd tal. Ingen skillnad i körtid noteras. Hur är
+      detta möjligt? Antag att all hårdvara och mjukvara utöver just algoritmerna som testas
+      är ekvivalenta.
+      
+    \end{enumerate}
+  \section*{Sortering}
+  Vi kan skapa en array med size stycken slumptal i intervallen $[0, 99]$ enligt
+  \begin{lstlisting}
+   Random rnd = new Random( ) ;
+   int [ s i z e ] = new int [ s i z e ] ;
+   for ( int i = 0 ; i < s i z e ; i++)
+   a r r [ i ] = rnd . Next ( 1 0 0 ) ;
+  \end{lstlisting}
+  
+\begin{enumerate}
+
+       \item Utför en bubble sort på följande array $[0, 17, -3, 8, 1, 5]$ med papper och penna.
+ 	      
+       \item Skriv en funktion i C\# som tar emot en godtycklig int-array som skapats enligt koden ovan och sorterar den med bubblesort.
+       
+       \item Utför en quicksort sort på följande array $[0, 17, -3, 8, 1, 5]$ med papper och penna.
+       
+       \item Skriv en funktion i C\# som tar emot en godtycklig int-array som skapats enligt koden ovan och sorterar den med quicksort. Din funktion får inte skapa nya arrayer
+       (eller listor). Du måste alltså jobba med pekare.
+       
+       \item Betrakta följande kod: 
+       \begin{lstlisting}
+int f(n){
+	switch(n)
+		{
+			case 0 : return random(101)
+          	default : return n + random(51)
+		}
+}
+int [] h(n){
+	int [] A = new int [ n ] ;
+	z = 0
+	x = ?
+	for ( int i = 0 ; i < n ; i++)
+		z = f ( z )
+		A[ i ] = z
+	QS(A, x )
+	return A
+}
+       \end{lstlisting}
+Där QS är quicksort. Notera att QS tar emot två argument, det första är den array
+som skall sorteras och x är en bool som anger hur vi skall välja pivot-element. Om
+$x=true$ så väljer vi alltid sista elementet i arrayen annars väljer vi pivot-elementet på
+måfå (random). Om vi planerar att köra $h(10^8)$, vad skall vi låta $x$ vara? Motivera!   
+
+\item Låt BS vara bubble sort. Vore det föredelaktigt att (utan att ändra någon annan kod
+) byta ut raden $QS(A, x)$ mot $BS(A)$ i koden ovan? Motivera!    
+\end{enumerate}
+\section*{Sökning}
+Ett vanligt problem är att man har en samling $S$, exempelvis en array, med element där man
+frågar sig huruvida ett element $e$ ingår i $S$ eller ej. Skriv en funktion i C\# som tar emot en sorterad lista och utför en binär sökning. Signaturen bör således vara något likt $f(int[ ] A, int a) $ där $a$ är elementet vi söker.
+\begin{enumerate}
+\item Skriv en naiv lösning på sökproblemet i en array. Med "naiv" avses här en for -loop
+som går igenom samtliga element från början till slut i arrayen och utför en check för
+varje element. Testkör sedan funktionen på en relativt stor array du slumpat fram. Vad
+är ordo?
+\item Testkör din binära sökfunktion på samma array som ovan. Vad händer? Varför?
+\item Sortera arrayen med quicksort eller bubble sort innan du kör den binära sökningen.
+Vad är ordo nu? Motivera!
+\item Ar det bättre att sortera en array och använda den binära sökningen eller att använda
+den naiva lösningen direkt? Motivera!
+\end{enumerate}
+\end{document}
