@@ -154,54 +154,38 @@ public bool Search(int number, int[] numbers){
       är ekvivalenta.
       
     \end{enumerate}
-  \section*{Sortering}
-  Vi kan skapa en array med size stycken slumptal i intervallen $[0, 99]$ enligt
-  \begin{lstlisting}
-   Random rnd = new Random( ) ;
-   int [ s i z e ] = new int [ s i z e ] ;
-   for ( int i = 0 ; i < s i z e ; i++)
-   a r r [ i ] = rnd . Next ( 1 0 0 ) ;
-  \end{lstlisting}
-  
+\section*{Sortering}
+För att få förståelse för sortering och hur kostsamt det är så går denna labb ut på att experimentera hur lång den faktiska tiden är för att sortera. Vi utgår från att ni läser på teorin på Quicksort och Bubblesort och förstår hur detta görs manuellt. För uppgiften på denna labb så kommer ni inte behöva implementera detta själva utan kan använda er av koden från föreläsningarna. Ni har fått kod från föreläsningen på Quicksort och Bubblesort. Vi skall alltså ta och utföra 5 körningar av varje sortering med x st element i varje lista och ta fram den exakta körtiden för varje körning. Nedan följer en mer steg för steg beskrivning.
+
 \begin{enumerate}
-
-       \item Utför en bubble sort på följande array $[0, 17, -3, 8, 1, 5]$ med papper och penna.
- 	      
-       \item Skriv en funktion i C\# som tar emot en godtycklig int-array som skapats enligt koden ovan och sorterar den med bubblesort.
-       
-       \item Utför en quicksort sort på följande array $[0, 17, -3, 8, 1, 5]$ med papper och penna.
-       
-       \item Skriv en funktion i C\# som tar emot en godtycklig int-array som skapats enligt koden ovan och sorterar den med quicksort. Din funktion får inte skapa nya arrayer
-       (eller listor). Du måste alltså jobba med pekare.
-       
-       \item Betrakta följande kod: 
-       \begin{lstlisting}
-int f(n){
-	switch(n)
-		{
-			case 0 : return random(101)
-          	default : return n + random(51)
-		}
-}
-int [] h(n){
-	int [] A = new int [ n ] ;
-	z = 0
-	x = ?
-	for ( int i = 0 ; i < n ; i++)
-		z = f ( z )
-		A[ i ] = z
-	QS(A, x )
-	return A
-}
-       \end{lstlisting}
-Där QS är quicksort. Notera att QS tar emot två argument, det första är den array
-som skall sorteras och x är en bool som anger hur vi skall välja pivot-element. Om
-$x=true$ så väljer vi alltid sista elementet i arrayen annars väljer vi pivot-elementet på
-måfå (random). Om vi planerar att köra $h(10^8)$, vad skall vi låta $x$ vara? Motivera!   
-
-\item Låt BS vara bubble sort. Vore det föredelaktigt att (utan att ändra någon annan kod
-) byta ut raden $QS(A, x)$ mot $BS(A)$ i koden ovan? Motivera!    
+\item Börja med att skapa upp en consol-applikation i VS. I den så klistrar du in de metoder du fått från föreläsningen (dvs Bubblesort och Quicksort). Ta inte det som finns i main-metoden (om du inte vill testa din metod - då är det fritt fram).
+\item Skapa en metod som retunerar en array med slumpade nummer i. Man skall när man anropar metoden kunna ange hur stor och hur många element som skall finnas i arrayen. 
+\item (frivilligt) Skapa gärna en metod som kan skriva ut en array i consolen. 
+\item För att kunna ta tid skall ni använda er av $Stopwath$ förklaring hur man använder denna klass finns här: http://www.dotnetperls.com/stopwatch.
+\item Innan vi nu använder våra sorteringsalgoritmer så skall ni i början av Quicksort och Bubblesort starta klockan och stoppa den när den är klar med sorteringen. Sedan skall den sist i metoderna skriva ut vilken tid det tog.
+\item Innan vi endast börjar kolla tiderna så kan du med fördel prova att skriva ut den osorterade arrayen för att sedan skriva ut den sorterade för att se att den gör rätt (med andra ord att du inte förstört något).
+\item Nu är det dags att testa. Testa att först köra bubblesort och Quicksort på 10 element för att sedan börja utöka antal element. VARNING: Redan vid 100000 element börjar det bli slött och ni kan få vänta länge! Öka $n$ långsamt! Ni får själva söka upp IT-Avdelningen utifall datorn låser sig.
+\item För varje test skriver ni ner på ett papper vilken sorteringsalgoritm och hur många element du hade och sedan hur lång tid det tog.
 \end{enumerate}
+
+Du bör nu ha fått en ganska klar analys om vad som hände och varför? Vilken algoritm var bäst? 
+
+Det roliga stannar inte här utan nu skall vi göra ett ytterligare experiment. Från föreläsningen bör du fått veta om att Quicksort använder sig av Pivot-element. I den algoritmen som du har så tas pivot-element från mitten och nu skall du ändra den kodraden till att ta pivot-elementet längst till vänster. Alltså denna rad\\
+
+$x = data[(l + r) / 2]; /* find pivot item */$ \\
+
+ändrar vi till: \\\\
+$x = data[l]; /* find pivot item */$ \\
+
+(Kommentera ut din kodrad som sorterar med bubblesort) - kunde du se någon skillnad i din körning? Tog den längre tid? Lägg nu till en kodrad där du sorterar samma lista igen (alltså skickar in din sorterade lista att sorteras igen) - vad hände?
+
+Ändra nu tillbaka till: \\
+
+$x = data[(l + r) / 2]; /* find pivot item */$ \\
+
+Vad händer nu? Spelar det någon roll hur vi väljer Pivot-element? Isåfall när spelar det roll? 
+
+
 \section*{Sökning}
 Ett vanligt problem är att man har en samling $S$, exempelvis en array, med element där man
 frågar sig huruvida ett element $e$ ingår i $S$ eller ej. Skriv en funktion i C\# som tar emot en sorterad lista och utför en binär sökning. Signaturen bör således vara något likt $f(int[ ] A, int a) $ där $a$ är elementet vi söker.
