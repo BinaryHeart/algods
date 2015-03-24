@@ -1,0 +1,189 @@
+\documentclass{article}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\newcounter{questioncounter}
+\newcounter{exercisecounter}
+\setcounter{questioncounter}{0}
+\setcounter{exercisecounter}{0}
+
+
+% Questions
+\newcommand{\question}[1]{
+  \refstepcounter{questioncounter}
+  \addcontentsline{toc}{subsubsection}{Fråga: 1.\thequestioncounter{} #1}
+  \vspace{1em}~
+  \\\normalfont{\large{\bfseries{\hspace{0.5em}Fråga 1.\thequestioncounter \hspace{1em}#1}}}\\\\
+}
+
+% Exercises
+\newcommand{\exercise}[1]{
+  \refstepcounter{exercisecounter}
+  \addcontentsline{toc}{subsubsection}{Uppgift: 1.\theexercisecounter{} #1}
+  \vspace{1em}~
+  \\\normalfont{\large{\bfseries{\hspace{0.5em}Uppgift 1.\theexercisecounter \hspace{1em}#1}}}\\\\
+}
+
+\lstset{
+  language=[Sharp]C,
+  basicstyle=\color[rgb]{0.3,0.3,0.3}\ttfamily,
+  keywordstyle=\color[rgb]{0,0.5,0.5},
+  numberstyle=\color[rgb]{0.7,0.7,0.7},
+  commentstyle=\color[rgb]{0.1,0.5,0.1},
+  stringstyle=\color[rgb]{0.6,0.1,0.5},
+  backgroundcolor=\color[rgb]{0.95,0.95,0.95},
+  showstringspaces=false,
+  numbers=left,
+  breaklines,
+  breakatwhitespace,
+}
+
+
+
+\begin{document}
+
+  \title{Kurskompendium }
+  \author{ Algoritmer och datastrukturer }
+  \date{}
+  \maketitle
+
+
+  \section*{Kurskompendium}
+   Välkommen till kursen Algoritmer och datastrukturer. Det är viktigt att du läser igenom detta kompendium och tillhörande dokument för att få en känsla av vad som förväntas av dig på kursen. Kursen kommer bestå av momeneten 1) Föreläsningar 2) Lektioner/Laborationer och 3)Tentamen.
+
+
+
+  \section*{Föreläsningar
+  }
+
+  Föreläsningarna behandlar främst de teoretiska grunderna för kursen men fungerar även som
+  introduktion till de koncept som laborationerna behandlar.
+  
+  \section*{Lektioner/Laborationer
+    }
+  Den praktiska delen av kursen består utav ett antal laborationer där ett antal inlämningsuppgifter
+  ska genomföras. Instruktionerna till laborationerna läggs upp på kurssidan ett par dagar innan
+  det första laborationstillfället så att det finns tid för förberedelse inför laborationen.
+  Uppgifterna är utformade så att det inte endast skall kunna göras under handledd tid utan det krävs att man sitter även utanför labbtid.
+  
+  \section*{Tentamen}
+  Tentamen är en traditionell salstenta där era kunskaper testas utifrån det vi gått igenom
+  under kursen. Som vanligt har kursen en ordiniare tenta och även en omtentamen. Tider för
+  dessa finns under tentamensanmälningarna. Glöm inte att anmäla er i tid till tentamen.
+  
+  \section*{Kurslitteratur
+  }
+  Kursen har inte någon enskild kursbok utan kursen bygger till största delen på föreläsningsunderlag
+  och laborationer med era tillhörande lösningar samt referenslitteratur.
+  
+  \begin{enumerate}
+  \item Data structures and Algorithms
+   		\begin{enumerate}
+   		  \item länk: http://dotnetslackers.com/projects/Data-Structures-And-Algorithms/
+   		  \item Är referenslitteratur främst till laborationerna.
+   		\end{enumerate}
+  \item Kurslitteraturen samt annat material från kursen Objektorienterad programmering I
+     		\begin{enumerate}
+     		  \item Det förutsätts att ni har god förståelse för koncepten från denna kurs	 
+     		\end{enumerate}
+  \end{enumerate}
+  \section*{Examination och betyg}
+  Betygsskalan för kursen är Underkänd (U), Godkänd (G) och Väl Godkänd (VG). För att
+  erhålla betyget Godkänt på kursen krävs godkänt på kursmomenten inlämningsuppgifter
+  och tentamen. För att få Väl Godkänt krävs godkänt på kursmomentet inlämningsuppgifter
+  och betyget väl godkänt på tentamen.
+  
+  \section*{Inlämningsuppgifter}
+  
+  \begin{enumerate}
+    	          \item Ni arbetar i grupper om max två personer. Det går även att arbeta själv, men det är ofta fördelaktigt att arbeta tillsammans med någon.
+    	          \item För att bli godkänd på kursen måste man klara samtliga fyra laborationer. För varje laboration finns ett häfte med uppgifter som skall lösas. Uppgifterna är av två typer, rättningen av dessa behandlas nedan.	          
+  \end{enumerate}
+  
+  \subsection*{Deadlines}
+  
+  Deadline för inlämningsuppgifterna finns i schemat och är precis som man kan misstänka
+  sista dag och klockslag för att lämna in en inlämningsuppgifter i tid. Vid missad deadline
+  gäller reglerna för sen inlämning, se avsnittet om rättning längre ned.
+  
+  \subsection*{Programmeringsuppgifter}
+  Utöver kraven gällande kodstandard osv. som beskrivs nedan i det här dokumentet måste
+  även följande uppfyllas:
+  
+  \begin{enumerate}
+    \item Alla personer i gruppen måste göra en inlämning på kurssidan. Bara en i gruppen
+    måste lämna in själva kodprojektet men alla gruppmedlemmar måste göra en inlämning
+    där de skriver i kommentarsfältet vem de arbetat med.
+  \end{enumerate}
+  
+  \subsection*{Skriftliga uppgifter}
+  Till laborationerna finns det ett antal frågor. Dessa frågor skall besvaras och lämnas in på studentportalen tillsammans med den kod ni har. Alltså får ni lägga ert kodprojekt i en mapp och lägga i din pdf-fil i den mappen och göra den till en .zip. Alla svar skall motiveras men samtidigt vara korta, ofta räcker det med ett par meningar. Tänk på att det är ni som ska övertyga oss om att ni förstår vad frågan behandlar. Dokumentet skall vara snyggt ordnat och slarviga inlämningar rättas ej! 
+  
+  \subsection*{Tips}
+  \begin{enumerate}
+  		\item Använd papper och penna när ni jobbar med problem.
+  		\item Läs kurslitteraturen (föreläsningsmaterial och referenslitteratur)! Den täcker i princip
+  		allt vi går igenom på labbarna.
+  		\item Sök på internet när ni inte förstår något. Den här kursen behandlar enkom elementära
+  		begrepp, vilket medför att allt finns beskrivet.
+  \end{enumerate}
+  \section*{Rättning}
+  Rättning sker i två omgångar, en ordinarie rättning och en sekundär rättning. Vidare gäller - givetvis - att ofullständiga lösningar ger komplettering. Med fullständig lösning avses en
+  lösning där:
+  
+  \begin{enumerate}
+    		\item Alla obligatoriska krav uppfylls
+    		\item För inlämningar som innefattar programkod
+    		\begin{enumerate}
+    		 \item Skall koden kunna kompileras och köras för att rättas, ej körbara applikationer
+    		 leder alltid till komplettering.
+    		 \item Kodstandarden (från OOP1) följs
+    		\end{enumerate}
+    \end{enumerate}
+    
+    Vidare gäller att ordinare rättningstillfälle sker efter första deadline och det extra rättningstillfället sker kort efter avslut. Notera därför att man endast har 2 tillfällen att bli godkänd. Kompletteringar på första rättas alltså vid det senare tillfället och därav förljer att väljer man att lämna in på andra rättnignstillfället så kan man inte få komplettering. 
+    \subsection*{Fusk}
+   Notera att det existerar en nolltolerans vad gäller fusk. Med fusk avses en inlämning i någon
+   form där inte samtliga av följande punkter gäller:
+
+
+    \begin{enumerate}
+    	          \item Arbetet är ditt eget, vilket implicerar att du kan förklara samt försvara lösningen. Vad
+    	          gäller arbete i grupp så antas alla gruppmedlemmar uppfylla föregående krav.
+    	          \item Att låta sig inspireras av andras lösningar implicerar inte fusk per se, men ovanstående
+    	          krav gäller fortfarande. Således räknas det som fusk att kopiera stora delmängder av
+    	          någon annans kod rakt av. Däremot kan en lösningsmetodik som nyttjats av någon
+    	          annan tillämpas, dock på ett sådant sätt att det framgår att lösningsutformningen är
+    	          din egen.
+    	          \item Overlag anses det vara god praxis att referera till källor om du nyttjar andras lösningsmetoder
+    	          som inte anses standard. Förklara även varför du nyttjat dem. Notera att ovanstående
+    	          punkter fortfarande gäller, och du antas ha full inblick i utformningens metodik samt
+    	          fördelar.
+  	              
+     \end{enumerate}
+     
+ Du bör därför vara beredd på att kunna försvara samt förklara samtliga delar av din
+ lösning om du blir tillfrågad. Otillräckliga svar är grund för misstanke om fusk gällande
+ lösningsutformningen. Vidare kan icke konsistenta lösningar vad gäller utformning vara grund
+ för misstanke om fusk, då det indikerar en lösning som bygger på komposition snarare än
+ eget arbete. Se därför till att alla lösningar är dina egna, i den mening att du själv formulerat
+ dem. Vid arbeta som innefattar programkod är korrekta samt ej överflödiga eller allt för 
+
+utförliga metod- och klassbeskrivningar i form av xml-kommentarer styrker intrycket av eget
+arbete. Var därför noga med att ditt lösningsförslag har en gedigen och konsistent utformning.
+Som lärare så gör vi vårt yttersta för att ge motiverande och uppgifter som utvecklar era
+kunskaper. Vi gör vårt yttersta för att uppgifterna skall hålla en lagom kunskapsnivå för
+undvikande av triggande till fusk. Som student gäller således att säga till när man behöver
+hjälp och fråga om osäkerhet föreligger om något uppfattas som fusk eller inte.
+
+\subsection*{Kodstandard}
+Vi hänvisar till den kodstandard som fanns i Objektorienterad programmering I.
+
+
+\end{document}
