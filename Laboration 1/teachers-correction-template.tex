@@ -144,7 +144,7 @@ Det är just dessa operationer som eran Repository ska stödja och de finns spec
   
   I skalprojektet finns det redan en Repository implementerad som kallas "ListRepository". ListRepository är en repository som inte helt oväntat använder en Lista som datalagringsplats. Den repository som vi ska skapa nu ska i stället använda en Array för att lagra data och vara implementerad på ett sätt som skiljer sig aningen från hur en List fungerar.
   
-  Eran repository ska implementeras i klassen ArrayRepository som även den finns i skalprojektet och ska alltså använda en Array som underliggande datastruktyr. Till skillnad från hur en List fungerar så ska storleken av er array förändras i takt med att objekt läggs till och tas bort. Arrayen ska alltså alltid ha samma storlek som antalet lagrade element.
+  Eran repository ska implementeras i klassen ArrayRepository som även den finns i skalprojektet och ska alltså använda en Array som underliggande datastruktur. Till skillnad från hur en List fungerar så ska storleken av er array förändras i takt med att objekt läggs till och tas bort. Arrayen ska alltså alltid ha samma storlek som antalet lagrade element.
 
 I Skalprojektet finns det en redan implementerad applikation "ConsoleTelefonbok" vars syfte är att testa eran repository. ConsoleTelefonbok är implementerad på så sätt att den kräver att en ArrayRepository skickas in i konstruktorn i samband med att en instans av Telefonboken skapas. Detta görs i metoden TestRepository och ni kan låta det vara så för nu.
     \begin{enumerate}
