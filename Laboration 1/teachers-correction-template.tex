@@ -13,6 +13,11 @@
 \setcounter{questioncounter}{0}
 \setcounter{exercisecounter}{0}
 
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+
 
 % Questions
 \newcommand{\question}[1]{
