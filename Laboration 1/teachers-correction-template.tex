@@ -53,7 +53,7 @@
 
 \begin{document}
 
-  \title{Labb I -Listor, köer och stackar }
+  \title{Labb II -Listor, köer och stackar }
   \author{ Algoritmer och datastrukturer | Uppsala Universitet | VT15 }
   \date{}
   \maketitle
@@ -65,9 +65,8 @@
    I den här laborationen kommer ni att bekanta er med olika grundläggande datastrukturer
    som listor, arrayer, köer och stackar. Tanken är att ni skall få en inblick i deras respektive
    styrkor och svagheter. Därmed bör det bli enklare att välja rätt typ av datastruktur för ett
-   givet problem. Ni kommer även att implementera en egen datastruktur genom realiseringen
-   av den abstrakta datatypen Påse (Bag/Multiset). Alla implementationer i denna laboration
-   görs i skalprojektet som finns att tillgå på kurshemsidan
+   givet problem. Ni kommer även att implementera en repository och med hjälp av interface demostrera styrkan med abstraktion. Alla implementationer i denna laboration
+   görs i skalprojektet som finns att tillgå på kurshemsidan. I denna laboration kommer ni inte behöva lämna in svar på frågorna i texten, alltså endast kodinlämning krävs.
 
 
 
@@ -89,7 +88,8 @@
     \item Minskar kapaciteten när element tas bort ur listan?
   \end{enumerate}
   
-  \textcolor{red}{Uppgift att fundera på: Varför ökar inte listans kapacitet i samma takt som element läggs till? Varför har inte listan 1000 platser redan från början? (DENNA SKA SKRIVAS OM!)}
+  
+ Uppgift att fundera på: Varför ökar inte listans kapacitet i samma takt som element läggs till? Varför har inte listan 1000 platser redan från början? - diskutera med detta med någon annan grupp. 
 
   \section*{Köer}
   Datastrukturen kö (implementerad i Queue-klassen) fungerar enligt FIFO-principen (First
@@ -149,7 +149,7 @@ Det är just dessa operationer som eran Repository ska stödja och de finns spec
   
   I skalprojektet finns det redan en Repository implementerad som kallas "ListRepository". ListRepository är en repository som inte helt oväntat använder en Lista som datalagringsplats. Den repository som vi ska skapa nu ska i stället använda en Array för att lagra data och vara implementerad på ett sätt som skiljer sig aningen från hur en List fungerar.
   
-  Eran repository ska implementeras i klassen ArrayRepository som även den finns i skalprojektet och ska alltså använda en Array som underliggande datastruktur. Till skillnad från hur en List fungerar så ska storleken av er array förändras i takt med att objekt läggs till och tas bort. Arrayen ska alltså alltid ha samma storlek som antalet lagrade element.
+  Er repository ska implementeras i klassen ArrayRepository som även den finns i skalprojektet och ska alltså använda en Array som underliggande datastruktur. Till skillnad från hur en List fungerar så ska storleken av er array förändras i takt med att objekt läggs till och tas bort. Arrayen ska alltså alltid ha samma storlek som antalet lagrade element.
 
 I Skalprojektet finns det en redan implementerad applikation "ConsoleTelefonbok" vars syfte är att testa eran repository. ConsoleTelefonbok är implementerad på så sätt att den kräver att en ArrayRepository skickas in i konstruktorn i samband med att en instans av Telefonboken skapas. Detta görs i metoden TestRepository och ni kan låta det vara så för nu.
     \begin{enumerate}
@@ -167,7 +167,7 @@ Det är ju självklart en stor fördel att kunna byta datalagringskälla på det
 
 Är det möjligt att lösa detta problem? Varför ska Telefonboksapplikationen egentligen behöva bry sig om hur datalagringsklassen väljer att sköta sina operationer så länge den vet vilka operationer som stödjs? \\ \\Svaret är att den inte behöver det och lösningen kallas för Abstraktion, närmare bestämt användandet av ett Interface!
 
-Ett Interface är en speciell typ av struktur inom programmering likt en klass men med skillnaden att den inte får innehålla någon implementation utan endast metodsignaturer. Interfaces fungerar nämligen endast som en form av kontrakt som bestämmer vilka operationer som måste finnas implementerade hos de klasser som implementerar interfacet. Just därför kallas de även ofta för Contracts.
+Ett Interface är en speciell typ av struktur inom programmering likt en klass men med skillnaden att den inte får innehålla någon implementation utan endast metodsignaturer. Interfaces fungerar nämligen endast som en form av kontrakt som bestämmer vilka operationer som måste finnas implementerade hos de klasser som implementerar interfacet. Just därför kallas de även ofta för Contracts. 
 
 Er uppgift är nu att öka abstraktionsnivån på ArrayRepository och ListRepository och även öka flexibiliteten hos ConsoleTelefonbok så att den inte bryr sig om hur dess repository är implementerad.
 
@@ -175,7 +175,7 @@ Er uppgift är nu att öka abstraktionsnivån på ArrayRepository och ListReposi
                  \item Skapa ett nytt Interface som ni kallar IKontaktRepository och låt det innehålla metodsignaturerna för CRUD operationerna som beskrevs i förra uppgiften.
                  \item Låt sedan både ArrayRepository och ListRepository implementera detta interface
                  \item Ändra sedan ConsoleTelefonbok så att den nu accepterar en repository av den abstrakta typen IKontaktRepository.
-                 \item I metoden TestRepository i Program.cs kan ni nu deklarera en variabel av typen IRepository som ni tilldelar antingen en ny ArrayRepository eller en ny ListRepository och notera att båda nu kan representeras som samma typ av objektstyp.
+                 \item I metoden TestRepository i Program.cs kan ni nu deklarera en variabel av typen IKontaktRepository som ni tilldelar antingen en ny ArrayRepository eller en ny ListRepository och notera att båda nu kan representeras som samma typ av objektstyp.
                  \item Ge nu Telefonboken en av dessa repositories och testa så att det fortfarande fungerar. Byt sedan till den andra repositoryn och notera att det nu går att byta datakälla utan några som helst besvär.
     	              
      \end{enumerate}
