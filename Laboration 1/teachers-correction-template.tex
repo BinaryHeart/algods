@@ -113,12 +113,18 @@
   	          \item Simulera ICA-kön i föregående fråga igen på papper, men använd dig av en stack istället för en kö. Varför är detta inte en strategi att föredra med avseende på vad vi försöker simulera?
   	          \item Implementera en ReverseText-metod som läser in en sträng från användaren och med hjälp av en stack vänder ordning på teckenföljden för att sedan skriva ut den omvända strängen till användaren.	          
    \end{enumerate}
-  \section*{Påse (Bag) - implementation}
-  Det finns ett antal datastrukturer som fungerar som samlingar av objekt. Ni har ovan bekantat
-  er med listor, köer, stackar och arrayer som samtliga är exempel på dylika datastrukturer.
-  Samlingar är vanliga då lagring av element i en struktur är en grundläggande förutsättning
-  för databehandling. Ni skall nu göra en egen implementation av en samling i form av en
-  påse. Följande operationer ska stödjas:
+   \newpage
+  \section*{Repository (Lagringsplats) - implementation}
+I denna uppgift så ska ni få bygga en så kallad "Repository" (Svenska: förvaringsplats). \\ \\ En Repository är ett mycket vanligt förekommande designmönster inom systemarkitektur och representerar en klass vars syfte är att att sköta all datahanteringslogik mot en viss datakälla (vanligtvis en Databas). \\
+
+En Repository kan alltså ses som ett separat lager i ett system som aggerar mellanhand mellan applikationslogik och datalagringskälla. \\
+
+Det finns många fördelar med att separera sådan typ av logik från applikationslogiken. Bland annat för att centralisera datahanteringen till ett och samma ställe. Detta leder till färre upprepningar av kod vilket i sin tur gör det 
+lättare att underhålla och testa koden. \\
+
+En Repository sköter oftast endast de mest grundläggande operationer mot datakällan. Dessa brukar kallas för CRUD-operationer som står för Create (Lagra ett objekt), Read (Hämta alla lagrade objekt), Update (Updatera ett objekt) och Delete (Tag bort ett objekt). \\
+
+Det är just dessa operationer som eran Repository ska stödja och de finns specificerade i mer detalj nedan: \\
   
   \begin{center}
   \renewcommand{\arraystretch}{1.5}
@@ -126,49 +132,66 @@
     
       
       \textbf{Namn} & \textbf{Signatur} & \textbf{Förklaring} \\ \hline
-      Add & \texttt{void Add(int item)}& Lägger till item i påsen \\ 
-      Remove & \texttt{bool Remove(int item)} & Tar bort item ur påsen (finns det flera med samma värde tas enbart den första bort) \\
-      Clear & \texttt{void Clear()} \\ 
-      Count & \texttt{int Count} & Antalet element i påsen (egenskap) \\
-      Contains &\texttt{ bool Contains(int item)} & Kontrollerar om item finns i påsen  \\ 
-      Items & \texttt{int[] Items()} & En array med alla element i påsen \\
+      Create & \texttt{void Create(Kontakt kontakt)}& Lägger till kontakt i lagringsplatsen\\ 
+      Read & \texttt{IEnumerable<Kontakt> Read()} & Hämtar alla kontakter i lagringsplatsen \\
+      Update & \texttt{bool Update(Kontakt old, Kontakt new)} & Ändrar en lagrad kontakt (om kontakten finns returnerar true annars false). \\ 
+      Delete & \texttt{bool Delete(Kontakt kontakt)} & Tar bort en kontakt (om kontakten finns returnerar true annars false).\\
       \hline
     \end{tabular}
   \end{center}
   
-  Påsen ska implementeras i klassen Bag och ska vara implementerad med en array som
-  underliggande datastruktur för lagring av de element som påsen innehåller. Denna arrays
-  storlek ska öka och minska dynamiskt och alltid vara av samma storlek som det totala antalet
-  element i påsen. Således, om vi har 15 element i påsen ska arrayen ha storlek 15 och om vi
-  tar bort ett element ska den ha storlek 14 o s v.
+  Som ni ser så tar metoderna i beskrivningen ovan objekt av typen Kontakt som argument. Detta är för att vi senare ska använda oss av en enkel Telefonboksapplikation för att testa denna funktionalitet.
+  
+  I skalprojektet finns det redan en Repository implementerad som kallas "ListRepository". ListRepository är en repository som inte helt oväntat använder en Lista som datalagringsplats. Den repository som vi ska skapa nu ska i stället använda en Array för att lagra data och vara implementerad på ett sätt som skiljer sig aningen från hur en List fungerar.
+  
+  Eran repository ska implementeras i klassen ArrayRepository som även den finns i skalprojektet och ska alltså använda en Array som underliggande datastruktyr. Till skillnad från hur en List fungerar så ska storleken av er array förändras i takt med att objekt läggs till och tas bort. Arrayen ska alltså alltid ha samma storlek som antalet lagrade element.
 
+I Skalprojektet finns det en redan implementerad applikation "ConsoleTelefonbok" vars syfte är att testa eran repository. ConsoleTelefonbok är implementerad på så sätt att den kräver att en ArrayRepository skickas in i konstruktorn i samband med att en instans av Telefonboken skapas. Detta görs i metoden TestRepository och ni kan låta det vara så för nu.
     \begin{enumerate}
-    	          \item Operationerna Add och Remove kommer att medföra att den underliggande arrayens storlek ändras. Redogör för dessa operationers utformning genom illustration på papper.
-    	          \item Implementera ovanstående metoder i Bag-klassen.	  
-    	          \item Skriv ett testprogram (implementera metoden \texttt{Testbag}) där man ska kunna lägga till, ta bort samt räkna element. Vidare ska man kunna undersöka huruvida ett element finns i påsen eller ej. Använda följande kommandon; add: +element, remove: -element,
-    	          contains: ?element, count: !. 
-    	          \\\\
-    	          Exempel på testkörning:
-    	          
-    	          \texttt{+12}\\
-    	          \texttt{Bag = 12 }\\
-    	          \texttt{+3} \\
-    	          \texttt{Bag =  12, 3 }
-    	          \texttt{+7}\\
-    	          \texttt{Bag = 12, 3, 7 }\\
-    	          \texttt{-3}\\
-    	          \texttt{Bag =  12, 7 }\\
-    	          \texttt{?3} \\
-    	          \texttt{ Contains = false} \\
-    	          \texttt{!}\\
-    	          \texttt{Count = 2}\\
-    	          
+                 \item Testa att köra Telefonbokapplikationen genom att köra programmet och navigera till Repository valet i programmets meny och följ applikationens egen meny.
+    	          \item Implementera sedan ovanstående metoder i ArrayRepository klassen.
+    	          \item Ändra nu så att ConsoleTelefonbok tar en ArrayRepository som argument i konstruktorn i stället för en ListRepository (Detta kräver även att variabeln repository ändrar typ till ArrayRepository.
+    	          \item Testa nu Telefonbok applikationen igen. Om ni gjort rätt bör den fungera precis som tidigare men nu använder den en helt annan datastruktur för att lagra Kontakt objekten.
     	              
      \end{enumerate}
 
   \subsection*{Abstraktion}
-\textcolor{red}{Här kommer det finnas ett sätt att visa på abstraktion med hjälp av interface}
 
+I den föregående uppgiften skapade ni en ArrayRepository som ni testade med hjälp av ConsoleTelefonbok-applikationen. Detta var möjligt eftersom ListRepository och ArrayRepository båda stödjer precis samma operationer.\\ \\
+Det är ju självklart en stor fördel att kunna byta datalagringskälla på det här viset men detta krävde också att vi gick in och ändrade i implementationen av hela Telefonboksapplikationen vilket ju inte är särskilt smidigt och inte alls är möjligt för en vanlig användare av Telefonboken.
 
+Är det möjligt att lösa detta problem? Varför ska Telefonboksapplikationen egentligen behöva bry sig om hur datalagringsklassen väljer att sköta sina operationer så länge den vet vilka operationer som stödjs? \\ \\Svaret är att den inte behöver det och lösningen kallas för Abstraktion, närmare bestämt användandet av ett Interface!
 
+Ett Interface är en speciell typ av struktur inom programmering likt en klass men med skillnaden att den inte får innehålla någon implementation utan endast metodsignaturer. Interfaces fungerar nämligen endast som en form av kontrakt som bestämmer vilka operationer som måste finnas implementerade hos de klasser som implementerar interfacet. Just därför kallas de även ofta för Contracts.
+
+Er uppgift är nu att öka abstraktionsnivån på ArrayRepository och ListRepository och även öka flexibiliteten hos ConsoleTelefonbok så att den inte bryr sig om hur dess repository är implementerad.
+
+    \begin{enumerate}
+                 \item Skapa ett nytt Interface som ni kallar IKontaktRepository och låt det innehålla metodsignaturerna för CRUD operationerna som beskrevs i förra uppgiften.
+                 \item Låt sedan både ArrayRepository och ListRepository implementera detta interface
+                 \item Ändra sedan ConsoleTelefonbok så att den nu accepterar en repository av den abstrakta typen IKontaktRepository.
+                 \item I metoden TestRepository i Program.cs kan ni nu deklarera en variabel av typen IRepository som ni tilldelar antingen en ny ArrayRepository eller en ny ListRepository och notera att båda nu kan representeras som samma typ av objektstyp.
+                 \item Ge nu Telefonboken en av dessa repositories och testa så att det fortfarande fungerar. Byt sedan till den andra repositoryn och notera att det nu går att byta datakälla utan några som helst besvär.
+    	              
+     \end{enumerate}
+     
+     Nu när vi kommit såhär långt har vi ökat flexibiliteten rejält hos vår Telefonbokapplikation! Våra Repositories kan dock endast hantera objekt av typen Kontakt vilket innebär att de endast kan utnyttjas av applikationer som vill lagra Kontakter. Om vi nu skulle vilja skapa ett Bibliotekssystem som bland annat lagrar böcker så skullevi inte längre kunna använda våra repositories.
+     
+Det vanliga sättet att hantera detta på är att helt enkelt skapa nya typer av Repositories (Exempelvis BokRepository, FörfattarRepository etc.).
+Detta är ofta rekommenderat eftersom Olika typer av objekt ofta lagras på olika sätt och ofta används objektens identifierare för att hitta specifika objekt i datalagringen. Hur kan vi vara säkra på vilken egenskap som är objektets identifierare? Det är svårt.
+
+Men med eftersom våra Repositories endast använder de mest grundläggande CRUD-operationerna och söker ut ur lagringen med hjälp av att helt enkelt jämföra ett objekt med ett annat med Equals metoden så fungerar det i detta fall.
+
+För att göra detta så kan vi göra våra Repositories "Generiska" (Generic).
+Precis som en List eller en Array kan skapas med en viss typ
+(Exempel: List<int>, List<Kontakt, int[], Kontakt[]) så kan vi göra våra Repositories göra samma sak.
+
+    \begin{enumerate}
+                 \item Lägg till "<T>" efter interface deklarationen av IKontaktRepository så att det blir IKontaktRepository<T> och ändra även alla förekomster av objekttypen Kontakt i Interfacet till "T" (Utan parenteser). Eftersom operationerna specificerade i ITelefonbokRepository nu kan användas för vilka objekt som helst så kan ni nu byta namn på Interfacet till endast "IRepository<T>"
+    	              \item Gör nu samma sak för ListRepository och ArrayRepository
+     \end{enumerate}
+
+Testa nu att skapa en ArrayRepository som hanterar objekt av en annan typ än Kontakt. Vi kan nu inte längre använda vår Telefonbok för att testa våran repository eftersom den inte är byggd för något annat än Kontakter men ni kan manuellt testa att lägga till objekt den valde objekttypen genom att skicka med det i repositoryns Create metod.
+
+Reflektera slutligen över den ökade flexibiliteten som Interfacet och att använda Generics erbjuder. Tänk på att era repositories lika gärna hade kunnat använt en databas respektive en web service som datakälla!
 \end{document}
