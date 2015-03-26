@@ -89,7 +89,7 @@
   \end{enumerate}
   
   
- Uppgift att fundera på: Varför ökar inte listans kapacitet i samma takt som element läggs till? Varför har inte listan 1000 platser redan från början? - diskutera med detta med någon annan grupp. 
+ Uppgift att fundera på: Varför ökar inte listans kapacitet i samma takt som element läggs till? Varför har inte listan 1000 platser redan från början? - diskutera detta tillsammans med någon annan grupp. 
 
   \section*{Köer}
   Datastrukturen kö (implementerad i Queue-klassen) fungerar enligt FIFO-principen (First
@@ -98,7 +98,7 @@
   \begin{enumerate}
       \item Simulera en kö med papper och penna där följande inträffar:
 	      \begin{enumerate}
-	          \item ICA oöpnar och kön till kassan är tom.
+	          \item ICA öppnar och kön till kassan är tom.
 	          \item Kalle ställer sig i kön.
 	          \item Lisa ställer sig i kön.
 	          \item Kalle blir expedierad och lämnar kön.
@@ -153,50 +153,48 @@ Det är just dessa operationer som eran Repository ska stödja och de finns spec
 
 I Skalprojektet finns det en redan implementerad applikation "ConsoleTelefonbok" vars syfte är att testa eran repository. ConsoleTelefonbok är implementerad på så sätt att den kräver att en ArrayRepository skickas in i konstruktorn i samband med att en instans av Telefonboken skapas. Detta görs i metoden TestRepository och ni kan låta det vara så för nu.
     \begin{enumerate}
-                 \item Testa att köra Telefonbokapplikationen genom att köra programmet och navigera till Repository valet i programmets meny och följ applikationens egen meny.
-    	          \item Implementera sedan ovanstående metoder i ArrayRepository klassen.
-    	          \item Ändra nu så att ConsoleTelefonbok tar en ArrayRepository som argument i konstruktorn i stället för en ListRepository (Detta kräver även att variabeln repository ändrar typ till ArrayRepository.
+                 \item Testa att köra Telefonbokapplikationen i dess befintliga skick genom att köra programmet och navigera till Repository valet i programmets meny och följ applikationens egen meny. Testa samtliga operationer.
+    	          \item Implementera sedan samtliga CRUD-metoder som beskrevs på föregående sida i ArrayRepository klassen.
+    	          \item När det är klart så ska ni ändra så att ConsoleTelefonbok tar er nya ArrayRepository som argument i konstruktorn i stället för en ListRepository (Detta kräver även att variabeln repository ändrar typ till ArrayRepository).
     	          \item Testa nu Telefonbok applikationen igen. Om ni gjort rätt bör den fungera precis som tidigare men nu använder den en helt annan datastruktur för att lagra Kontakt objekten.
     	              
      \end{enumerate}
 
-  \subsection*{Abstraktion}
+  \subsection*{IRepository<T> - Abstraktion}
 
-I den föregående uppgiften skapade ni en ArrayRepository som ni testade med hjälp av ConsoleTelefonbok-applikationen. Detta var möjligt eftersom ListRepository och ArrayRepository båda stödjer precis samma operationer.\\ \\
+I den föregående uppgiften skapade ni en ArrayRepository som ni testade genom att låta den ersätta ListRepository som ConsoleTelefonbok-applikationen tidigare använde sig av. Detta var möjligt eftersom ListRepository och ArrayRepository båda stödjer precis samma operationer (De implementerade samma metodsignaturer).\\ \\
 Det är ju självklart en stor fördel att kunna byta datalagringskälla på det här viset men detta krävde också att vi gick in och ändrade i implementationen av hela Telefonboksapplikationen vilket ju inte är särskilt smidigt och inte alls är möjligt för en vanlig användare av Telefonboken.
 
-Är det möjligt att lösa detta problem? Varför ska Telefonboksapplikationen egentligen behöva bry sig om hur datalagringsklassen väljer att sköta sina operationer så länge den vet vilka operationer som stödjs? \\ \\Svaret är att den inte behöver det och lösningen kallas för Abstraktion, närmare bestämt användandet av ett Interface!
+Är det möjligt att lösa detta problem? Varför ska Telefonboksapplikationen egentligen behöva bry sig om hur datalagringsklassen väljer att sköta sina operationer så länge den vet vilka operationer som stödjs? \\ \\Svaret är att den faktiskt inte behöver det, inte om vi använder oss av Abstraktion, närmare bestämt av ett Interface!
 
-Ett Interface är en speciell typ av struktur inom programmering likt en klass men med skillnaden att den inte får innehålla någon implementation utan endast metodsignaturer. Interfaces fungerar nämligen endast som en form av kontrakt som bestämmer vilka operationer som måste finnas implementerade hos de klasser som implementerar interfacet. Just därför kallas de även ofta för Contracts. 
+Ett Interface är en speciell typ av struktur inom programmering likt en klass men med skillnaden att den inte får innehålla någon implementation utan endast metodsignaturer. Interfaces fungerar nämligen endast som en form av kontrakt som bestämmer vilka operationer som måste finnas implementerade hos de klasser som implementerar interfacet. Just därför kallas de även ofta för Contracts. Ett interface representerar alltså en typ av abstraktion och kan liknas vid vilket annat abstrakt begrepp som helst. En "bil" är ju t.ex ett abstrakt begrepp som kan representera en mer specifik (konkret) sorts bil  så som en Volvo V40.
 
-Er uppgift är nu att öka abstraktionsnivån på ArrayRepository och ListRepository och även öka flexibiliteten hos ConsoleTelefonbok så att den inte bryr sig om hur dess repository är implementerad.
+Er uppgift är nu att öka abstraktionsnivån på ArrayRepository och ListRepository och även öka flexibiliteten hos ConsoleTelefonbok så att den inte bryr sig om vad för specifik sorts repository den tilldelas.
 
     \begin{enumerate}
                  \item Skapa ett nytt Interface som ni kallar IKontaktRepository och låt det innehålla metodsignaturerna för CRUD operationerna som beskrevs i förra uppgiften.
-                 \item Låt sedan både ArrayRepository och ListRepository implementera detta interface
+                 \item Låt sedan både ArrayRepository och ListRepository implementera detta interface.
                  \item Ändra sedan ConsoleTelefonbok så att den nu accepterar en repository av den abstrakta typen IKontaktRepository.
-                 \item I metoden TestRepository i Program.cs kan ni nu deklarera en variabel av typen IKontaktRepository som ni tilldelar antingen en ny ArrayRepository eller en ny ListRepository och notera att båda nu kan representeras som samma typ av objektstyp.
+                 \item I metoden TestRepository i Program.cs kan ni nu deklarera en variabel av typen IKontaktRepository som ni tilldelar antingen en ny ArrayRepository eller en ny ListRepository och notera att båda nu kan representeras som samma objektstyp (Volvo V40 och Saab 9000 kan båda representera en Bil).
                  \item Ge nu Telefonboken en av dessa repositories och testa så att det fortfarande fungerar. Byt sedan till den andra repositoryn och notera att det nu går att byta datakälla utan några som helst besvär.
     	              
      \end{enumerate}
      
-     Nu när vi kommit såhär långt har vi ökat flexibiliteten rejält hos vår Telefonbokapplikation! Våra Repositories kan dock endast hantera objekt av typen Kontakt vilket innebär att de endast kan utnyttjas av applikationer som vill lagra Kontakter. Om vi nu skulle vilja skapa ett Bibliotekssystem som bland annat lagrar böcker så skullevi inte längre kunna använda våra repositories.
-     
-Det vanliga sättet att hantera detta på är att helt enkelt skapa nya typer av Repositories (Exempelvis BokRepository, FörfattarRepository etc.).
-Detta är ofta rekommenderat eftersom Olika typer av objekt ofta lagras på olika sätt och ofta används objektens identifierare för att hitta specifika objekt i datalagringen. Hur kan vi vara säkra på vilken egenskap som är objektets identifierare? Det är svårt.
+Nu när vi kommit såhär långt har vi ökat flexibiliteten rejält hos vår Telefonbokapplikation! Våra Repositories kan dock endast hantera objekt av typen Kontakt vilket innebär att de endast kan utnyttjas av applikationer som vill lagra Kontakter. Om vi nu skulle vilja skapa ett Bibliotekssystem som bland annat lagrar böcker så skulle vi inte längre kunna använda våra repositories.\\
 
-Men med eftersom våra Repositories endast använder de mest grundläggande CRUD-operationerna och söker ut ur lagringen med hjälp av att helt enkelt jämföra ett objekt med ett annat med Equals metoden så fungerar det i detta fall.
+För att göra detta möjligt så kan vi göra våra Repositories "Generiska" (Generic).\\
 
-För att göra detta så kan vi göra våra Repositories "Generiska" (Generic).
-Precis som en List eller en Array kan skapas med en viss typ
-(Exempel: List<int>, List<Kontakt, int[], Kontakt[]) så kan vi göra våra Repositories göra samma sak.
+En stor fördel med generiska datastrukturer så som List<T> (där T är datatypen), är att vid iteration över dess element så kan vi vara säkra på vad varje element stödjer för operationer. T.ex så kan vi med en List<int> iterera över listan och göra matematiska operationer på elementen utan att oroa oss om att något element istället är en String vilket skulle orsaka problem. Om vi itererar över en icke-generisk lista så kan vi få exceptions under run-time (Programmet kraschar när det körs) men om vi skulle försökt utföra matematiska operationer på en generisk lista av String-objekt så skulle vi istället få ett compile-time error (Error som tvingar oss att rätta till felet innan programmet kan köras).
+
+Precis som en List eller en Array kan skapas för att hålla en viss datatyp
+(List<int>, List<Kontakt>, int[], Kontakt[]) så kan vi göra så att våra Repositories göra samma sak.
 
     \begin{enumerate}
-                 \item Lägg till "<T>" efter interface deklarationen av IKontaktRepository så att det blir IKontaktRepository<T> och ändra även alla förekomster av objekttypen Kontakt i Interfacet till "T" (Utan parenteser). Eftersom operationerna specificerade i ITelefonbokRepository nu kan användas för vilka objekt som helst så kan ni nu byta namn på Interfacet till endast "IRepository<T>"
-    	              \item Gör nu samma sak för ListRepository och ArrayRepository
+                 \item Lägg till "<T>" efter interface deklarationen av IKontaktRepository så att det blir IKontaktRepository<T> och ändra även alla förekomster av objekttypen Kontakt i Interfacet till "T" (Utan parenteser). Eftersom operationerna specificerade i ITelefonbokRepository nu kan användas för andra objekttyper än Kontakt så kan ni nu byta namn på Interfacet till endast "IRepository<T>"
+    	              \item Gör nu även ListRepository och ArrayRepository generiska på samma vis.
      \end{enumerate}
 
-Testa nu att skapa en ArrayRepository som hanterar objekt av en annan typ än Kontakt. Vi kan nu inte längre använda vår Telefonbok för att testa våran repository eftersom den inte är byggd för något annat än Kontakter men ni kan manuellt testa att lägga till objekt den valde objekttypen genom att skicka med det i repositoryns Create metod.
+Testa nu att  skapa en ArrayRepository i TestRepository-metoden som hanterar objekt av en annan typ än Kontakt. Vi kan nu inte längre använda vår Telefonbok för att testa våran repository eftersom den inte är byggd för något annat än Kontakter men ni kan manuellt testa att lägga till objekt av den valde objekttypen genom att anropa Create metoden.
 
-Reflektera slutligen över den ökade flexibiliteten som Interfacet och att använda Generics erbjuder. Tänk på att era repositories lika gärna hade kunnat använt en databas respektive en web service som datakälla!
+Reflektera slutligen över den ökade flexibiliteten som Interfaces och Generics kan erbjuda. Tänk på att era repositories lika gärna hade kunnat använt en databas respektive en web service som datalagring, (DatabaseRepository, WebServiceRepository) och att utbytet av repository till och med skulle kunna ske under run-time!
 \end{document}
