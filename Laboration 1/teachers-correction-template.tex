@@ -147,7 +147,7 @@ Det är just dessa operationer som eran Repository ska stödja och de finns spec
   
   Som ni ser så tar metoderna i beskrivningen ovan objekt av typen Kontakt som argument. Detta är för att vi senare ska använda oss av en enkel Telefonboksapplikation för att testa denna funktionalitet.
   
-  I skalprojektet finns det redan en Repository implementerad som kallas "ListRepository". ListRepository är en repository som inte helt oväntat använder en Lista som datalagringsplats. Den repository som vi ska skapa nu ska i stället använda en Array för att lagra data och vara implementerad på ett sätt som skiljer sig aningen från hur en List fungerar.
+  I skalprojektet finns det redan en Repository implementerad som kallas "ListRepository". ListRepository är en repository som använder en Lista som datalagringsplats. Den repository som vi ska skapa nu ska i stället använda en Array för att lagra data och vara implementerad på ett sätt som skiljer sig aningen från hur en List fungerar.
   
   Er repository ska implementeras i klassen ArrayRepository som även den finns i skalprojektet och ska alltså använda en Array som underliggande datastruktur. Till skillnad från hur en List fungerar så ska storleken av er array förändras i takt med att objekt läggs till och tas bort. Arrayen ska alltså alltid ha samma storlek som antalet lagrade element.
 
@@ -155,7 +155,7 @@ I Skalprojektet finns det en redan implementerad applikation "ConsoleTelefonbok"
     \begin{enumerate}
                  \item Testa att köra Telefonbokapplikationen i dess befintliga skick genom att köra programmet och navigera till Repository valet i programmets meny och följ applikationens egen meny. Testa samtliga operationer.
     	          \item Implementera sedan samtliga CRUD-metoder som beskrevs på föregående sida i ArrayRepository klassen.
-    	          \item När det är klart så ska ni ändra så att ConsoleTelefonbok tar er nya ArrayRepository som argument i konstruktorn i stället för en ListRepository (Detta kräver även att variabeln repository ändrar typ till ArrayRepository).
+    	          \item När det är klart så ska ni ändra så att ConsoleTelefonbok tar ett obejt av typen ArrayRepository som argument i konstruktorn i stället för en ListRepository (Detta kräver även att variabeln ``\_repo'' ändrar typ till ArrayRepository).
     	          \item Testa nu Telefonbok applikationen igen. Om ni gjort rätt bör den fungera precis som tidigare men nu använder den en helt annan datastruktur för att lagra Kontakt objekten.
     	              
      \end{enumerate}
@@ -165,9 +165,9 @@ I Skalprojektet finns det en redan implementerad applikation "ConsoleTelefonbok"
 I den föregående uppgiften skapade ni en ArrayRepository som ni testade genom att låta den ersätta ListRepository som ConsoleTelefonbok-applikationen tidigare använde sig av. Detta var möjligt eftersom ListRepository och ArrayRepository båda stödjer precis samma operationer (De implementerade samma metodsignaturer).\\ \\
 Det är ju självklart en stor fördel att kunna byta datalagringskälla på det här viset men detta krävde också att vi gick in och ändrade i implementationen av hela Telefonboksapplikationen vilket ju inte är särskilt smidigt och inte alls är möjligt för en vanlig användare av Telefonboken.
 
-Är det möjligt att lösa detta problem? Varför ska Telefonboksapplikationen egentligen behöva bry sig om hur datalagringsklassen väljer att sköta sina operationer så länge den vet vilka operationer som stödjs? \\ \\Svaret är att den faktiskt inte behöver det, inte om vi använder oss av Abstraktion, närmare bestämt av ett Interface!
+Är det möjligt att lösa detta problem? Varför ska Telefonboksapplikationen egentligen behöva bry sig om hur datalagringsklassen väljer att sköta sina operationer så länge den vet vilka operationer som stödjs? \\ \\Svaret är att den faktiskt inte behöver det, inte om vi använder oss av Abstraktion, närmare bestämt av ett Interface.
 
-Ett Interface är en speciell typ av struktur inom programmering likt en klass men med skillnaden att den inte får innehålla någon implementation utan endast metodsignaturer. Interfaces fungerar nämligen endast som en form av kontrakt som bestämmer vilka operationer som måste finnas implementerade hos de klasser som implementerar interfacet. Just därför kallas de även ofta för Contracts. Ett interface representerar alltså en typ av abstraktion och kan liknas vid vilket annat abstrakt begrepp som helst. En "bil" är ju t.ex ett abstrakt begrepp som kan representera en mer specifik (konkret) sorts bil  så som en Volvo V40.
+Ett Interface är en speciell typ av struktur inom programmering likt en klass men med skillnaden att den inte får innehålla någon implementation utan endast metodsignaturer. Interfaces fungerar nämligen endast som en form av kontrakt som bestämmer vilka operationer som måste finnas implementerade hos de klasser som implementerar interfacet. Just därför kallas de även ofta för Contracts. Ett interface representerar alltså en typ av abstraktion och kan liknas vid vilket annat abstrakt begrepp som helst. En "bil" är ju t.ex ett abstrakt begrepp som kan representeras av en mer specifik (konkret) sorts bil  så som en Volvo V40.
 
 Er uppgift är nu att öka abstraktionsnivån på ArrayRepository och ListRepository och även öka flexibiliteten hos ConsoleTelefonbok så att den inte bryr sig om vad för specifik sorts repository den tilldelas.
 

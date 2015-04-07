@@ -160,37 +160,59 @@ public bool Search(int number, int[] numbers){
       
    
 \section*{Sortering}
-Vi sa tidigare att vi inte är intresserade av den faktiska tiden en algoritm tar. Dock skall vi i denna uppgift kolla på de faktiska tiderna för sortering. Vi utgår från att ni läser på teorin på Quicksort och Bubblesort och förstår hur detta görs manuellt (det är en typsik tentamensfråga att kunna sortera med papper och pennga). För uppgiften på denna labb så kommer ni inte behöva implementera detta själva utan kan använda er av koden från föreläsningarna. Ni har fått kod från föreläsningen på Quicksort och Bubblesort. Vi skall alltså ta och utföra ca 5 körningar (eller så många gånger så att ni märker av en skillnad) av varje sortering med x st element (där x är ökas vid varje experiment - Hur mycket den ska ökas är ditt jobb att ta reda på ) i varje lista och ta fram den exakta körtiden för varje körning. Nedan följer en mer steg för steg beskrivning.
+Vi sa tidigare att vi inte är intresserade av den faktiska tiden för en viss körning av en algoritm utan snarare hur tiden beror på storleken av dess input. I denna övning kommer ni att få utforska just detta för ett antal olika sorteringsalgoritmer. Detta kommer göras genom att implementera ett antal sorteringsalgoritmer och sedan låta en grafritare visualisera tidsåtgången av ett antal körningar med olika input-stolek. \\För uppgiften på denna labb så går det bra att använda sig av koden från föreläsningarna eller algoritmer från internet (tillförlitliga källor) men det är viktigt att ni ändå läser på teorin på dessa algoritmer och förstår hur detta görs manuellt (det är en typsik tentamensfråga att kunna sortera med papper och penna). \\Det finns väldigt mycket bra och pedagogiska videos på t.ex youtube som förklarar utförligt hur olika sorteringsalgoritmer fungerar så detta är högst rekommenderat att titta på. Ni har även fått kod från föreläsningen på Quicksort, Insertion sort och Bubblesort. \\
 
-\begin{enumerate}
-\item Börja med att skapa upp en consol-applikation i VS. I den så klistrar du in de metoder du fått från föreläsningen (dvs Bubblesort och Quicksort). Ta inte det som finns i main-metoden (om du inte vill testa din metod - då är det fritt fram).
-\item Skapa en metod som retunerar en array med slumpade nummer i. Man skall när man anropar metoden kunna ange hur stor och hur många element som skall finnas i arrayen. 
-\item (frivilligt) Skapa gärna en metod som kan skriva ut en array i consolen. Alternativt använda debuggern.
-\item  Testa nu att bara sortera en av dina osorterade arrayer så att du ser att det funkar.
-\item För att kunna ta tid på hur lång tid era algoritmer tar skall ni använda er av $Stopwath$ förklaring hur man använder denna klass finns här: http://www.dotnetperls.com/stopwatch.
-\item Innan vi nu använder våra sorteringsalgoritmer så skall ni i början av Quicksort och Bubblesort starta klockan och stoppa den när den är klar med sorteringen. Sedan skall den sist i metoderna skriva ut vilken tid det tog.
-\item Nu är det dags att testa. Testa att först köra bubblesort och Quicksort på 10 element för att sedan börja utöka antal element. VARNING: Redan vid 100 000 element börjar det bli slött och ni kan få vänta länge! Öka $n$ långsamt! Ni får själva söka upp IT-Avdelningen utifall datorn låser sig.
-\item För varje test skriver ni ner på ett papper vilken sorteringsalgoritm och hur många element du hade och sedan hur lång tid det tog.
-\end{enumerate}
+I skalprojektet, som finns på Studentportalen, så finns det en redan implementerad metod vars metodsignatur ser ut som följer: 
+\begin{lstlisting}
+DrawGraph(Sort metod, string seriesName) 
+\end{lstlisting}
 
-\textbf{Inlämningsfråga 6}: Rita upp en tabell där det framgår hur många element ni körde och hur lång tid det tog med bubblesort och quicksort på respektive körning (minst 5). \\\\
+Sort representerar i detta fallet en så kallad delelegat och seriesName är namnet på den tidsserie som resultatet ska visas på som har en viss färg.
 
-Det roliga stannar inte här utan nu skall vi göra ett ytterligare experiment. Från föreläsningen bör du fått veta om att Quicksort använder sig av Pivot-element. I den algoritmen som du har så tas pivot-element från mitten och nu skall du ändra den kodraden till att ta pivot-elementet längst till vänster. Alltså denna rad\\
+En delegat är en form av objekt som kan hålla en referens till en metod med en viss metodsignatur vilket är väldigt smidigt då det tillåter oss att skicka en metodreferens som parameter till en annan metod. 
+I detta fall så är delegaten deklarerad så att metoder som delegaten refererar till måste ta en array av integers som input och returnera void (ingenting). Denna delegat är alltså kapabel att hålla en referens till en metod som tar en lista av heltal och sorterar denna lista utan att returnera något.
+
+Syftet med denna metod är att vi ska kunna skapa olika sorteringsalgoritmer i metoder, skicka dess referenser som delegater till denna metod som sedan testkör metoden med olika stora listor. Under testkörningarna så mäter metoden även hur lång tid de olika körningarna tar och sedan ritar ut varje körnings resultat som en punkt i en viss tidsserie som sedan ritas ut på formuläret. Genom att titta på resultatet visuellt så kan det hjälpa oss att få en bättre känsla för algoritmernas faktiska komplexitet och vi kan även lätt se om implementationen av algoritmen verkar rimlig baserat på grafens form.\\
+
+I skalprojektet finns även de tomma metoderna "BubbleSort", "InsertionSort" och "QuickSort" där ni senare ska implementera respektive algoritm. I designer läget i Windows Forms projektet så finns det varsin knapp med motsvarande text som vid tryckning anropar DrawGraph med referenser till de olika metoderna och namnet på dess respektive tidsserie.\\
+
+Implementera nu de olika sorteringsalgoritmerna och prova att köra programmet och se hur komplexiteten hos de olika sorteringsalgoritmerna ser ut.\\
+
+
+%Vi skall alltså ta och utföra ca 5 körningar (eller så många gånger så att ni märker av en skillnad) av varje sortering med x st element (där x är ökas vid varje experiment - Hur mycket den ska ökas är ditt jobb att ta reda på ) i varje lista och ta fram den exakta körtiden för varje körning. Nedan följer en mer steg för steg beskrivning.
+
+%\begin{enumerate}
+%\item Börja med att skapa upp en consol-applikation i VS. I den så klistrar du in de metoder du fått från föreläsningen (dvs Bubblesort och Quicksort). Ta inte det som finns i main-metoden (om du inte vill testa din metod - då är det fritt fram).
+%\item Skapa en metod som retunerar en array med slumpade nummer i. Man skall när man anropar metoden kunna ange hur stor och hur många element som skall finnas i arrayen. 
+%\item (frivilligt) Skapa gärna en metod som kan skriva ut en array i consolen. Alternativt använda debuggern.
+%\item  Testa nu att bara sortera en av dina osorterade arrayer så att du ser att det funkar.
+%\item För att kunna ta tid på hur lång tid era algoritmer tar skall ni använda er av $Stopwath$ förklaring hur man använder denna klass finns här: http://www.dotnetperls.com/stopwatch.
+%\item Innan vi nu använder våra sorteringsalgoritmer så skall ni i början av Quicksort och Bubblesort starta klockan och stoppa den när den är klar med sorteringen. Sedan skall den sist i metoderna skriva ut vilken tid det tog.
+%\item Nu är det dags att testa. Testa att först köra bubblesort och Quicksort på 10 element för att sedan börja utöka antal element. VARNING: Redan vid 100 000 element börjar det bli slött och ni kan få vänta länge! Öka $n$ långsamt! Ni får själva söka upp IT-Avdelningen utifall datorn låser sig.
+%\item För varje test skriver ni ner på ett papper vilken sorteringsalgoritm och hur många element du hade och sedan hur lång tid det tog.
+%\end{enumerate}
+
+\textbf{Inlämningsfråga 6}: Ta en print screen på graferna för varje sorteringsalgoritm ni testade  och skriv ner era reflektioner över dessa. 
+
+Förklara även varför formen på linjerna för Bubblesort och Quicksort skiljer sig (Hint: Vad har de olika algoritmerna för Omega respektive ordo?). \\
+
+%Rita upp en tabell där det framgår hur många element ni körde och hur lång tid det tog med bubblesort och quicksort på respektive körning (minst 5). \\\\
+Det roliga stannar inte här utan nu skall vi göra ett ytterligare experiment. Från föreläsningen bör du fått veta om att Quicksort använder sig av Pivot-element. I Quicksort algoritmen som du har fått i detta skalprojekt så tas pivot-element från mitten och nu skall du ändra den kodraden till att ta pivot-elementet längst till vänster. Alltså denna rad\\
 
 $x = data[(l + r) / 2]; /* find pivot item */$ \\
 
 ändrar vi till: \\\\
 $x = data[l]; /* find pivot item */$ \\
 
-Kör quicksort på samma antal element du körde i förra experimentet. skriv upp antal element och körtiden. \\\\
+Kör nu quicksort igen.%på samma antal element du körde i förra experimentet. skriv upp antal element och körtiden. \\\\
 
 \textbf{Inlämningsfråga 7}: Blev det någon skillnad på quicksort genom att ändra valet av pivot-element?  \\\\
 
-Kör nu quicksort igen men på en redan sorterad lista. på samma antal element som föregående experiment. \\\\
+Kör nu quicksort igen men på en redan sorterad lista (För att göra detta kryssar ni i checkrutan "använd sorterad lista" på formuläret).\\\\
 
-\textbf{Inlämningsfråga 8}: Blev det någon skillnad på quicksort genom att ändra valet av pivot-element och köra på sorterad lista?  \\\\
+%\textbf{Inlämningsfråga 8}: Blev det någon skillnad på quicksort genom att ändra valet av pivot-element och köra på sorterad lista?  \\\\
 
-\textbf{Inlämningsfråga 9}: Förklara varför det är skillnader mellan Bubblesort och Quicksort (Hint: Vad har de olika algoritmerna för Omega respektive ordo?). Varför skiljer det sig när man flyttar pivotelementet och kör på sorterad lista? (Hint: hur funkar quicksort?)
+\textbf{Inlämningsfråga 8}: Varför skiljer det sig när man flyttar pivotelementet och kör på sorterad lista? (Hint: hur funkar quicksort?)
 
 
 \section*{Sökning}
