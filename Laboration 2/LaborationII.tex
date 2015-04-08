@@ -60,11 +60,7 @@
 
 
   \section*{Inledning}
-   I denna laboration kommer vi att behandla ordo, sortering och sökning. Det är viktigt att
-   man verkligen förstår hur sorteringsalgoritmerna fungerar, så använd papper och penna!
-   Att bara skriva in kod utan att förstå de mekaniska inslagen som utförs resulterar enkom i
-   framtida bekymmer (bl a på tentamen). Vidare är det viktigt att förstå hur man använder
-   stora ordo och att vara noga med att visa alla uträkningar. I denna laboration så skall ni endast lämna in en teoretisk inlämning. Frågorna som skall besvaras är märkt som \textbf{Inlämningsfråga x}. Lämna in även ert kodprojekt med den kod som ni använt er av under laborationen.
+   I denna laboration kommer vi att behandla ordo, sortering och sökning. Det är viktigt att man verkligen förstår hur sorteringsalgoritmerna fungerar, så använd papper och penna! Att bara skriva in kod utan att förstå de mekaniska inslagen som utförs resulterar enkom i framtida bekymmer (bl a på tentamen). Vidare är det viktigt att förstå hur man använder stora ordo och att vara noga med att visa alla uträkningar. Denna laboration består dels av ett antal teoretiska frågor men även en del kodning krävs. Frågorna som skall besvaras är märkta som \textbf{Inlämningsfråga x} och dessa besvaras i svarsmallen som finns uppladdad på Studentportalen. Denna laboration har även ett skalprojekt på Studentportalen som ni ska använda för koddelen. Kodprojektet ska tillslut zippas och laddas upp tillsammans med ifylld svarsmall.
    
 
 
@@ -78,7 +74,7 @@
   hur komplexiteten (antal varv i looparna) beror på input (n) eller genom att för varje loop
   i programmet motivera dess Ordo och sedan ange och motivera hela programmets Ordo. \\
   
-  \textbf{Inlämningsfråga 1}: Ange ordo för följande kodsnuttar. Redovisa alla uträkningar och motivera resultaten.
+  \textbf{Inlämningsfråga 1}: Ange ordo för följande fyra kodsnuttar. Redovisa alla uträkningar och motivera resultaten.
   
   
   
@@ -106,9 +102,9 @@
    \section*{Ordo - Del 2
     }
   
-  När vi studerar tidskomplexiteten $T(n)$ för algoritmer är det väldigt sällan vi är intresserad av det exakta resultatet. Ofta är vi endast intresserade av hur $T(n)$ växer beroende av $n$. Att approximera en tid så är Ordo-notation är ett bekvämt sätt att beskriva en funktions asymptotiska beteende, det vill säga hur snabbt den växer.
+  När vi studerar tidskomplexiteten $T(n)$ för algoritmer är det väldigt sällan vi är intresserad av det exakta resultatet. Ofta är vi endast intresserade av hur $T(n)$ växer beroende av $n$. När man vill approximera en tid så är Ordo-notation är ett bekvämt sätt att beskriva en funktions asymptotiska beteende, det vill säga hur snabbt den växer beroende på input.
   
-Även om vi vet algortims ordo så kan vi inte uttala oss om hur lång tid det kommer ta utan att vi vet hur tiden kommer att växa beroende av $n$. Vi hänvisar främst till föreläsningarna om den bakomliggande teorin men ger en påminnelse om hur de olika algoritmerna kan ha för ordo. Observera att fler finns. 
+Även om vi vet en algortims ordo så kan vi inte uttala oss om hur lång tid det kommer ta utan att vi vet hur tiden kommer att växa beroende av $n$. Vi hänvisar främst till föreläsningarna om den bakomliggande teorin men ger en påminnelse om hur de olika algoritmerna kan ha för ordo. Observera att fler finns. 
   
   \begin{center}
     \begin{tabular}{| l | c |}
@@ -134,7 +130,8 @@
 	\end{tabular}
  \end{center} 
  \textbf{Inlämningsfråga 2} : Ange och motivera ordo för ovanstående funktioner. \\\\
-  Kom ihåg att ordo är det värsta tänkbara fallet. Det finns även inversen av ordo som betecknas med stora omega $\Omega$ alltså den bästa tänkbara tiden. Viktigt att förstå att det är vi som implementerar algoritmerna som kan påverka $\mathcal{O}$ och $\Omega$. Betrakta nedanstående kod. Som den är utformad nu så är Search en algortitm är  $T(n)$ $\in$ $\Omega  (n)$ och $T(n)$ $\in$ $\mathcal{O}(n)$. Din uppgift blir helt enkelt att få algoritmen sådan att den uppfyller  $T(n)$ $\in$ $\Omega(1)$.
+  Kom ihåg att ordo är det värsta tänkbara fallet. Det finns även inversen av ordo som betecknas med stora omega $\Omega$ alltså den bästa tänkbara tiden. Viktigt att förstå att det är vi som implementerar algoritmerna som kan påverka $\mathcal{O}$ och $\Omega$. Betrakta nedanstående kod. Som den är utformad nu så är Search en algortitm där  $T(n)$ $\in$ $\Omega  (n)$ och $T(n)$ $\in$ $\mathcal{O}(n)$. Din uppgift blir helt enkelt att få algoritmen sådan att den uppfyller  $T(n)$ $\in$ $\Omega(1)$.
+  \pagebreak
   \begin{lstlisting}
 public bool Search(int number, int[] numbers){
      bool found = false;
@@ -148,7 +145,6 @@ public bool Search(int number, int[] numbers){
      return found; 
 }
    \end{lstlisting}
-  
   \textbf{Inlämningsfråga 3}: Hur ser din kod ut för att få algoritmen att uppfylla $T(n)$ $\in$ $\Omega(1)$? Förklaring krävs för godkänt! \\\\
 
       \textbf{Inlämningsfråga 4}: Ponera att vi har två algoritmer $A_1$ och $A_2$ där  $A_1$ $\in$ $\Omega (n)$ och  $A_2$ $\in$ $\mathcal{O}(n^2)$ som avgör huruvida ett tal $n$ är ett primtal eller ej. Du är i behov av just en sådan algoritm. Vilken av dem bör du införskaffa givet den information du har? Motivera ditt svar.\\\\
@@ -162,7 +158,9 @@ public bool Search(int number, int[] numbers){
 \section*{Sortering}
 Vi sa tidigare att vi inte är intresserade av den faktiska tiden för en viss körning av en algoritm utan snarare hur tiden beror på storleken av dess input. I denna övning kommer ni att få utforska detta genom att implementera ett antal sorteringsalgoritmer och sedan låta en grafritare visualisera tidsåtgången av ett antal körningar med olika input-stolek. \\För uppgiften på denna labb så går det bra att använda sig av koden från föreläsningarna eller algoritmer från internet (tillförlitliga källor) men det är viktigt att ni ändå läser på teorin på dessa algoritmer och förstår hur detta görs manuellt. Det är en typsik tentamensfråga att kunna sortera med papper och penna så detta är ett mycket bra tillfälle att sätta er in i hur algoritmerna löser problemen. \\Det finns även väldigt mycket bra och pedagogiska videos på t.ex youtube som förklarar utförligt hur olika sorteringsalgoritmer fungerar så detta är högst rekommenderat att titta på. Ni har även fått kod från föreläsningen på Quicksort, Insertion sort och Bubblesort. \\
 
-Öppna skalprojektet som finns på studentportalen. \\Under projektet "ComplexityVisualizer", dubbelklicka på "Form1" och tryck [F7] eller Gå via menyn View -> Code, för att öppna den bakomliggande koden.\\ \\
+\begin{enumerate}
+\item Öppna skalprojektet som finns på studentportalen. \\Under projektet "ComplexityVisualizer" 
+\item Dubbelklicka på "Form1" och tryck [F7] eller Gå via menyn View -> Code, för att öppna den bakomliggande koden.\end{enumerate}
 Som ni ser så finns där en redan implementerad metod vars metodsignatur ser ut som följer: 
 \begin{lstlisting}
 DrawGraph(Sort metod, string seriesName) 
@@ -236,9 +234,11 @@ där $element$ är elementet vi söker och $array$ är listan vi söker igenom.
 Testkör din binära sökfunktion på en slumpad array. 
 \\\\
 
-\textbf{Inlämningsfråga 11}: Vad hände när du försökte köra din sökning på den slumpade arrayen och varför?\\\\
+\textbf{Inlämningsfråga 9}: Vad hände när du försökte köra din sökning på den slumpade arrayen och varför?
+\pagebreak
+
 Sortera nu arrayen med valfri sökningsmetod innan du kör den binära sökningen (du kan t.ex kopiera in en av sorteringsmetoderna som du gjorde tidigare och använda dig av). \\\\
-\textbf{Inlämningsfråga 12}: Vad är ordo nu? Motivera! \\\\
-\textbf{Inlämningsfråga 13}: Är det bättre att sortera en array och sedan använda den binära sökningen eller att använda den naiva lösningen direkt? Motivera!
+\textbf{Inlämningsfråga 10}: Vad är ordo nu? Motivera! \\\\
+\textbf{Inlämningsfråga 11}: Är det bättre att sortera en array och sedan använda den binära sökningen eller att använda den naiva lösningen direkt? Motivera!
 
 \end{document}
