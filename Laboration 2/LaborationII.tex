@@ -160,21 +160,22 @@ public bool Search(int number, int[] numbers){
       
    
 \section*{Sortering}
-Vi sa tidigare att vi inte är intresserade av den faktiska tiden för en viss körning av en algoritm utan snarare hur tiden beror på storleken av dess input. I denna övning kommer ni att få utforska just detta för ett antal olika sorteringsalgoritmer. Detta kommer göras genom att implementera ett antal sorteringsalgoritmer och sedan låta en grafritare visualisera tidsåtgången av ett antal körningar med olika input-stolek. \\För uppgiften på denna labb så går det bra att använda sig av koden från föreläsningarna eller algoritmer från internet (tillförlitliga källor) men det är viktigt att ni ändå läser på teorin på dessa algoritmer och förstår hur detta görs manuellt (det är en typsik tentamensfråga att kunna sortera med papper och penna). \\Det finns väldigt mycket bra och pedagogiska videos på t.ex youtube som förklarar utförligt hur olika sorteringsalgoritmer fungerar så detta är högst rekommenderat att titta på. Ni har även fått kod från föreläsningen på Quicksort, Insertion sort och Bubblesort. \\
+Vi sa tidigare att vi inte är intresserade av den faktiska tiden för en viss körning av en algoritm utan snarare hur tiden beror på storleken av dess input. I denna övning kommer ni att få utforska detta genom att implementera ett antal sorteringsalgoritmer och sedan låta en grafritare visualisera tidsåtgången av ett antal körningar med olika input-stolek. \\För uppgiften på denna labb så går det bra att använda sig av koden från föreläsningarna eller algoritmer från internet (tillförlitliga källor) men det är viktigt att ni ändå läser på teorin på dessa algoritmer och förstår hur detta görs manuellt. Det är en typsik tentamensfråga att kunna sortera med papper och penna så detta är ett mycket bra tillfälle att sätta er in i hur algoritmerna löser problemen. \\Det finns även väldigt mycket bra och pedagogiska videos på t.ex youtube som förklarar utförligt hur olika sorteringsalgoritmer fungerar så detta är högst rekommenderat att titta på. Ni har även fått kod från föreläsningen på Quicksort, Insertion sort och Bubblesort. \\
 
-I skalprojektet, som finns på Studentportalen, så finns det en redan implementerad metod vars metodsignatur ser ut som följer: 
+Öppna skalprojektet som finns på studentportalen. \\Under projektet "ComplexityVisualizer", dubbelklicka på "Form1" och tryck [F7] eller Gå via menyn View -> Code, för att öppna den bakomliggande koden.\\ \\
+Som ni ser så finns där en redan implementerad metod vars metodsignatur ser ut som följer: 
 \begin{lstlisting}
 DrawGraph(Sort metod, string seriesName) 
 \end{lstlisting}
 
-Sort representerar i detta fallet en så kallad delelegat och seriesName är namnet på den tidsserie som resultatet ska visas på som har en viss färg.
+Sort representerar i detta fallet en så kallad delelegat och seriesName är namnet på den tidsserie som resultatet ska visas på som har en viss färg.\\
 
 En delegat är en form av objekt som kan hålla en referens till en metod med en viss metodsignatur vilket är väldigt smidigt då det tillåter oss att skicka en metodreferens som parameter till en annan metod. 
 I detta fall så är delegaten deklarerad så att metoder som delegaten refererar till måste ta en array av integers som input och returnera void (ingenting). Denna delegat är alltså kapabel att hålla en referens till en metod som tar en lista av heltal och sorterar denna lista utan att returnera något.
 
 Syftet med denna metod är att vi ska kunna skapa olika sorteringsalgoritmer i metoder, skicka dess referenser som delegater till denna metod som sedan testkör metoden med olika stora listor. Under testkörningarna så mäter metoden även hur lång tid de olika körningarna tar och sedan ritar ut varje körnings resultat som en punkt i en viss tidsserie som sedan ritas ut på formuläret. Genom att titta på resultatet visuellt så kan det hjälpa oss att få en bättre känsla för algoritmernas faktiska komplexitet och vi kan även lätt se om implementationen av algoritmen verkar rimlig baserat på grafens form.\\
 
-I skalprojektet finns även de tomma metoderna "BubbleSort", "InsertionSort" och "QuickSort" där ni senare ska implementera respektive algoritm. I designer läget i Windows Forms projektet så finns det varsin knapp med motsvarande text som vid tryckning anropar DrawGraph med referenser till de olika metoderna och namnet på dess respektive tidsserie.\\
+I skalprojektet finns även de tomma metoderna "BubbleSort", "InsertionSort" och "QuickSort" där ni senare ska implementera respektive algoritm. I designer läget i Windows Forms projektet så finns det varsin knapp med motsvarande text som vid tryckning anropar den tidigare nämnda "DrawGraph"-metoden med referenser till de olika metoderna och namnet på dess respektive tidsserie.\\
 
 Implementera nu de olika sorteringsalgoritmerna och prova att köra programmet och se hur komplexiteten hos de olika sorteringsalgoritmerna ser ut.\\
 
@@ -208,7 +209,7 @@ Kör nu quicksort igen.%på samma antal element du körde i förra experimentet.
 
 \textbf{Inlämningsfråga 7}: Blev det någon skillnad på quicksort genom att ändra valet av pivot-element?  \\\\
 
-Kör nu quicksort igen men på en redan sorterad lista (För att göra detta kryssar ni i checkrutan "använd sorterad lista" på formuläret).\\\\
+Kör nu quicksort igen men på en redan sorterad lista (För att göra detta kryssar ni i checkrutan "använd sorterad lista" längst upp på formuläret).\\\\
 
 %\textbf{Inlämningsfråga 8}: Blev det någon skillnad på quicksort genom att ändra valet av pivot-element och köra på sorterad lista?  \\\\
 
@@ -216,19 +217,28 @@ Kör nu quicksort igen men på en redan sorterad lista (För att göra detta kry
 
 
 \section*{Sökning}
-Ett vanligt problem är att man har en samling $S$, exempelvis en array, med element där man frågar sig huruvida ett element $e$ ingår i $S$ eller ej. Skriv en funktion i C\# som tar emot en sorterad lista och utför en binär sökning. Signaturen bör således vara något likt $f(int[ ] A, int a) $ där $a$ är elementet vi söker.
+Ett vanligt problem är att man har en samling $S$, exempelvis en array, med element där man frågar sig huruvida ett element $e$ ingår i $S$ eller ej. \\
+Vi såg tidigare, i Del 2, att en naiv sökalgoritm har komplexiteten ${\mathcal{O}(n)}$.  Med "naiv" avses här en for -loop
+som går igenom samtliga element från början till slut i arrayen och utför en check för varje element.\\
 
-Skriv även en naiv lösning på sökproblemet i en array. Med "naiv" avses här en for -loop
-som går igenom samtliga element från början till slut i arrayen och utför en check för
-varje element. Testkör sedan funktionen på en relativt stor array du slumpat fram. \\\\
-\textbf{Inlämningsfråga 10}: Vad är ordo för din naiva lösning? \\\\
+Nu ska ni istället implementera en lite mer sofistikerad sökalgoritm, närmare bestämt en Binär sökningsalgoritm.\\
+
+Gå till console projektet "Search" i skalprojektet och skriv en metod som tar emot en lista och utför en binär sökning. Gör detta i metoden med följande metodsignatur:
+
+\begin{lstlisting}
+BinarySearch(int[ ] array, int element)
+\end{lstlisting}
+
+där $element$ är elementet vi söker och $array$ är listan vi söker igenom.
+
+ %Testkör sedan funktionen på en relativt stor array du slumpat fram. \\\\
+%\textbf{Inlämningsfråga 10}: Vad är ordo för din naiva lösning? \\\\
 Testkör din binära sökfunktion på en slumpad array. 
 \\\\
 
 \textbf{Inlämningsfråga 11}: Vad hände när du försökte köra din sökning på den slumpade arrayen och varför?\\\\
-Sortera arrayen med quicksort eller bubble sort innan du kör den binära sökningen. \\\\
-\textbf{Inlämningsfråga 12}:Vad är ordo nu? Motivera! \\\\
-\textbf{Inlämningsfråga 13}:Ar det bättre att sortera en array och använda den binära sökningen eller att använda
-den naiva lösningen direkt? Motivera!
+Sortera nu arrayen med valfri sökningsmetod innan du kör den binära sökningen (du kan t.ex kopiera in en av sorteringsmetoderna som du gjorde tidigare och använda dig av). \\\\
+\textbf{Inlämningsfråga 12}: Vad är ordo nu? Motivera! \\\\
+\textbf{Inlämningsfråga 13}: Är det bättre att sortera en array och sedan använda den binära sökningen eller att använda den naiva lösningen direkt? Motivera!
 
 \end{document}
